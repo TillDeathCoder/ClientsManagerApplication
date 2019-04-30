@@ -1,0 +1,12 @@
+**/logs/
+**/.scannerwork
+
+**/target/
+**/out/
+**/build/
+**/.gradle/
+**/.idea/
+**/*.iml
+
+**/node_modules/
+**/dist
