@@ -1,0 +1,43 @@
+<div class="modal-header">
+  <h4 class="modal-title"><i class="fas fa-user-plus"></i> Клиент:</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="card">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <label for="firstName"><i class="fas fa-pen"></i> Имя:</label>
+      <input type="text" class="form-control" id="firstName" placeholder="Имя..." required [formControl]="firstNameControl">
+      <div class="small form-text text-danger" *ngIf="!isNameValid">
+        Имя должно быть указано обязательно. Если у клиента нету имени, а только псевдоним, то запишите псевдоним в имя.
+      </div>
+    </li>
+    <li class="list-group-item">
+      <label for="lastName"><i class="fas fa-pen"></i> Фамилия:</label>
+      <input type="text" class="form-control" id="lastName" placeholder="Фамилия..." [(ngModel)]="client.lastName">
+    </li>
+    <li class="list-group-item">
+      <label for="nickName"><i class="fas fa-pen"></i> Псевдоним:</label>
+      <input type="text" class="form-control" id="nickName" placeholder="Псевдоним..." [(ngModel)]="client.nickname">
+    </li>
+    <li class="list-group-item">
+      <label for="phoneNumber"><i class="fas fa-phone"></i> Номер телефона:</label>
+      <input type="text" class="form-control" id="phoneNumber" placeholder="Номер..." [formControl]="phoneNumberControl">
+      <div class="small form-text text-danger" *ngIf="!isPhoneValid">
+        Введеный номер не соответсует формату. Пример: +375XX-XXX-XX-XX или 80XX-XXX-XX-XX
+      </div>
+    </li>
+    <li class="list-group-item">
+      <label for="internetLink"><i class="fas fa-external-link-square-alt"></i> Ссылка на соц. сети:</label>
+      <input type="text" class="form-control" id="internetLink" placeholder="Ссылка..." [(ngModel)]="client.internetLink">
+    </li>
+  </ul>
+  <div class="card-body">
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-success" (click)="save()" [disabled]="!isNameValid || !isPhoneValid">
+        Сохранить <i class="fas fa-thumbs-up"></i>
+      </button>
+    </div>
+  </div>
+</div>

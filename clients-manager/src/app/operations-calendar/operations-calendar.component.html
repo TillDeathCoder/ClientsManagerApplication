@@ -1,0 +1,20 @@
+<div class="calendar-background">
+  <full-calendar
+    #calendar
+    defaultView="dayGridMonth"
+    [header]="{
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      }"
+    themeSystem="bootstrap"
+    bootstrapFontAwesome="true"
+    buttonIcons="true"
+    locale="ru"
+    [plugins]="calendarPlugins"
+    [weekends]="calendarWeekends"
+    [events]="events"
+    (eventClick)="eventClick($event)"
+    (dateClick)="createEvent($event.dateStr)"
+  ></full-calendar>
+</div>

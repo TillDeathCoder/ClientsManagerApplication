@@ -1,0 +1,27 @@
+.main-content {
+  margin-top: 1%;
+}
+
+.main-page-settings{
+  background-image: url("../assets/image/background.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.menu-link {
+  color: #000000;
+  font-weight: 800;
+  display: block;
+  padding: 0.5rem 1rem;
+  background: #ffffff;
+  opacity: 0.8;
+  border-radius: 5px;
+  margin-right: 1px;
+}
+
+.menu-link:hover {
+  text-decoration: none;
+  color: #e51620;
+}

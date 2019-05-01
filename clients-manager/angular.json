@@ -11,8 +11,11 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
+            "customWebpackConfig": {
+              "path": "./webpack.config.js"
+            },
             "outputPath": "dist/clients-manager",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -25,7 +28,11 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/moment/moment.js",
+              "node_modules/@fullcalendar/core/locales/ru.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {

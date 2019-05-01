@@ -1,0 +1,85 @@
+<div class="modal-header">
+  <h4 class="modal-title"><i class="fas fa-edit"></i> Запись:</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="card">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <div class="form-group">
+        <label for="operationTypesSelect"><i class="fas fa-clipboard-list"></i> Тип:</label>
+        <select class="form-control" id="operationTypesSelect">
+          <option (click)="setType(type.id)" *ngFor="let type of operationTypes" id="{{type.id}}" [selected]="type.id === operation.operationType.id">{{type.title}}</option>
+        </select>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="form-group">
+        <label for="clientsSelect"><i class="fas fa-user-edit"></i> Клиент:</label>
+        <select class="form-control mb-2" id="clientsSelect">
+          <option (click)="setClient(client.id)" *ngFor="let client of clients" id="{{client.id}}" [selected]="client.id === operation.client.id">
+            {{client.firstName}} {{client.lastName}}
+          </option>
+        </select>
+        <button class="btn btn-primary" (click)="addClient()">Добавить клиента</button>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <label for="datePicker"><i class="fas fa-clock"></i> Дата:</label>
+      <form class="form-inline">
+        <div class="form-group">
+          <div class="input-group">
+            <input id="datePicker" class="form-control" placeholder="{{operation.date}}" name="dp" ngbDatepicker #d="ngbDatepicker"
+                   [displayMonths]="2"
+                   (dateSelect)="setDate($event)">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                <i class="fas fa-arrow-down"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div>
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <div>
+              <span>Начало:</span>
+              <ngb-timepicker [formControl]="timeStartControl" [spinners]="false"></ngb-timepicker>
+            </div>
+          </li>
+          <li class="list-inline-item">
+            <div class="time-picker">
+              <span>Конец:</span>
+              <ngb-timepicker [formControl]="timeFinishControl" [spinners]="false"></ngb-timepicker>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="small form-text text-danger">
+        <div *ngIf="(!timeStatus && dateTimeStatus) || (!timeStatus && !dateTimeStatus)"> Время начала больше чем время окончания.</div>
+        <div *ngIf="!dateTimeStatus && timeStatus">Время занято. Выберите другое время.</div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <label for="priceInput"><i class="fas fa-money-bill"></i> Стоимость:</label>
+      <input [formControl]="priceControl" min="0" type="number" class="form-control price-length" id="priceInput" value="{{operation.price}}">
+      <div class="small form-text text-danger" *ngIf="!priceStatus">
+        Неверное значение для стоимости: только цифры и значение должно быть больше нуля.
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="form-group">
+        <label for="commentArea"> <i class="fas fa-comments"></i> Комментарий:</label>
+        <textarea class="form-control" id="commentArea" rows="4" [(ngModel)]="operation.comment"></textarea>
+      </div>
+    </li>
+  </ul>
+  <div class="card-body">
+    <div class="btn-group" role="group">
+      <button [disabled]="!timeStatus || !dateTimeStatus || !priceStatus" type="button" class="btn btn-success" (click)="save()">
+        Сохранить <i class="fas fa-thumbs-up"></i></button>
+    </div>
+  </div>
+</div>
