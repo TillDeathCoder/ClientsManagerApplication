@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
-import {FullCalendarModule} from '@fullcalendar/angular';
+import {FullCalendarModule} from 'ng-fullcalendar';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 /* Components */
 import {AppComponent} from './app.component';
@@ -12,6 +12,7 @@ import {ClientsComponent} from './clients/clients.component';
 import {ClientDetailsComponent} from './client-details/client-details.component';
 import {OperationDetailsComponent} from './operation-details/operation-details.component';
 import {OperationsCalendarComponent} from './operations-calendar/operations-calendar.component';
+import {OperationsListComponent} from './operations-list/operations-list.component';
 import {OperationEditComponent} from './operation-edit/operation-edit.component';
 import { ClientEditComponent } from './client-edit/client-edit.component';
 
@@ -22,6 +23,7 @@ import { ClientEditComponent } from './client-edit/client-edit.component';
     ClientDetailsComponent,
     OperationDetailsComponent,
     OperationsCalendarComponent,
+    OperationsListComponent,
     OperationEditComponent,
     ClientEditComponent
   ],
@@ -40,4 +42,3 @@ import { ClientEditComponent } from './client-edit/client-edit.component';
 })
 export class AppModule {
 }
-

@@ -9,16 +9,16 @@
     <li class="list-group-item">
       <div class="form-group">
         <label for="operationTypesSelect"><i class="fas fa-clipboard-list"></i> Тип:</label>
-        <select class="form-control" id="operationTypesSelect">
-          <option (click)="setType(type.id)" *ngFor="let type of operationTypes" id="{{type.id}}" [selected]="type.id === operation.operationType.id">{{type.title}}</option>
+        <select class="form-control" id="operationTypesSelect" [formControl]="operationTypeControl" [compareWith]="compare">
+          <option *ngFor="let type of operationTypes" [ngValue]="type">{{type.title}}</option>
         </select>
       </div>
     </li>
     <li class="list-group-item">
       <div class="form-group">
         <label for="clientsSelect"><i class="fas fa-user-edit"></i> Клиент:</label>
-        <select class="form-control mb-2" id="clientsSelect">
-          <option (click)="setClient(client.id)" *ngFor="let client of clients" id="{{client.id}}" [selected]="client.id === operation.client.id">
+        <select class="form-control mb-2" id="clientsSelect" [formControl]="clientControl" [compareWith]="compare">
+          <option *ngFor="let client of clients" [ngValue]="client">
             {{client.firstName}} {{client.lastName}}
           </option>
         </select>

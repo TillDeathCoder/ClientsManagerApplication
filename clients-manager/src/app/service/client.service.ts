@@ -11,21 +11,18 @@ export class ClientService {
   }
 
   async getAllClients() {
-    return this.databaseService
-      .connection
-      .then(() => Client.find());
+    return await this.databaseService.connection
+        .then(() => Client.find());
   }
 
   async updateClient(client: Client) {
-    return this.databaseService
-      .connection
-      .then(() => Client.update(client.id, client));
+    return await this.databaseService.connection
+        .then(() => Client.update(client.id, client));
   }
 
   async createClient(client: Client) {
-    return this.databaseService
-      .connection
-      .then(() => Client.create(client));
+    return await this.databaseService.connection
+        .then(() => Client.save(client));
   }
 
 }

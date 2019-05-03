@@ -2,13 +2,17 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
-    "types": ["node"],
+    "module": "es2015",
+    "types": [],
     "paths": {
-      "typeorm": ["node_modules/typeorm/browser"]
+      "typeorm": ["../node_modules/typeorm/typeorm-model-shim.js"]
     }
   },
   "exclude": [
-    "test.ts",
-    "**/*.spec.ts"
+    "src/test.ts",
+    "**/*.spec.ts",
+    "dist",
+    "app-builds",
+    "node_modules"
   ]
 }

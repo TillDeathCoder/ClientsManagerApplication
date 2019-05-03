@@ -3,20 +3,24 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "clients-manager": {
+    "app-ui": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "angular-cli-builders:custom-webpack-browser",
           "options": {
             "customWebpackConfig": {
-              "path": "./webpack.config.js"
+               "path": "./extra-webpack.config.js"
             },
-            "outputPath": "dist/clients-manager",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -30,19 +34,25 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
+              "node_modules/jquery-ui-dist/jquery-ui.js",
               "node_modules/moment/moment.js",
-              "node_modules/@fullcalendar/core/locales/ru.js"
-            ],
-            "es5BrowserSupport": true
+              "node_modules/fullcalendar/dist/fullcalendar.min.js",
+              "node_modules/fullcalendar/dist/locale/ru.js"
+            ]
           },
           "configurations": {
+            "dev": {
+              "optimization": false,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": false
+            },
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -52,11 +62,10 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "budgets": [
+              "fileReplacements": [
                 {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
                 }
               ]
             }
@@ -65,18 +74,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "clients-manager:build"
+            "browserTarget": "app-ui:build"
           },
           "configurations": {
+            "dev": {
+              "browserTarget": "app-ui:build:dev"
+            },
             "production": {
-              "browserTarget": "clients-manager:build:production"
+              "browserTarget": "app-ui:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "clients-manager:build"
+            "browserTarget": "app-ui:build"
           }
         },
         "test": {
@@ -87,7 +99,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": [],
             "assets": [
@@ -110,21 +122,15 @@
         }
       }
     },
-    "clients-manager-e2e": {
+    "app-ui-e2e": {
       "root": "e2e/",
       "projectType": "application",
-      "prefix": "",
       "architect": {
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "clients-manager:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "clients-manager:serve:production"
-            }
+            "devServerTarget": "app-ui:serve"
           }
         },
         "lint": {
@@ -139,5 +145,14 @@
       }
     }
   },
-  "defaultProject": "clients-manager"
+  "defaultProject": "app-ui",
+  "schematics": {
+    "@schematics/angular:component": {
+      "prefix": "app",
+      "styleext": "scss"
+    },
+    "@schematics/angular:directive": {
+      "prefix": "app"
+    }
+  }
 }

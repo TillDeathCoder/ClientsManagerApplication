@@ -2,6 +2,7 @@ import {Operation} from '../entity/operation';
 import * as _ from 'lodash';
 import {OperationType} from '../entity/operation-type';
 import {Injectable} from '@angular/core';
+import * as moment from 'moment';
 
 const SIMPLE_EYELASH_EXTENSION_TYPE_ID = 1;
 const EYELASH_REMOVAL_TYPE_ID = 2;
@@ -28,7 +29,6 @@ export class OperationCalendarEventConverter {
           events.push(event);
         }
       });
-
       return _.compact(events);
     }
 
@@ -36,6 +36,7 @@ export class OperationCalendarEventConverter {
   }
 
   public convert(operation: Operation) {
+
     return {
       id: operation.id,
       title: this.buildTitle(operation),
@@ -43,7 +44,7 @@ export class OperationCalendarEventConverter {
       end: this.buildDateTime(operation.date, operation.finishTime),
       color: this.definyColor(operation.operationType),
       editable: false,
-      fullData: operation
+      fullData: this.transformOperation(operation)
     };
   }
 
@@ -56,11 +57,12 @@ export class OperationCalendarEventConverter {
   }
 
   private buildDateTime(date: string, time: string) {
-    return `${date}T${time}`;
+    const dateFormatted = moment(new Date(date)).format('YYYY-MM-DD');
+    return `${dateFormatted}T${time}`;
   }
 
   private definyColor(operationType: OperationType) {
-    switch (operationType.id) {
+    switch (+operationType.id) {
       case SIMPLE_EYELASH_EXTENSION_TYPE_ID:
         return SIMPLE_EYELASH_EXTENSION_TYPE_COLOR;
       case EYELASH_REMOVAL_TYPE_ID :
@@ -71,4 +73,13 @@ export class OperationCalendarEventConverter {
         return DEFAULT_COLOR;
     }
   }
+
+  private transformOperation(operation: Operation) {
+    operation.price = +operation.price;
+    // TODO move to constant
+    operation.date = moment(operation.date).format('YYYY-DD-MM');
+
+    return operation;
+  }
+
 }

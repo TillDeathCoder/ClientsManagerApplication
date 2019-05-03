@@ -3,8 +3,10 @@ import {Column, Entity} from 'typeorm';
 
 @Entity('operation_types')
 export class OperationType extends ClientsManagerEntity {
-  @Column()
-  title: string;
-  @Column()
-  description: string;
+
+    @Column()
+    title: string;
+
+    @Column()
+    description: string;
 }

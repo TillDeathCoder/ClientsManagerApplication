@@ -9,57 +9,51 @@ const DEFAULT_PRICE = 25;
 @Entity('operations')
 export class Operation extends ClientsManagerEntity {
 
-  @Column()
-  operationTypeId: number;
+    @OneToOne(type => OperationType)
+    @JoinColumn()
+    operationType: OperationType;
 
-  @OneToOne(type => OperationType, operationType => operationType.id)
-  @JoinColumn()
-  operationType: OperationType;
+    @OneToOne(type => Client)
+    @JoinColumn()
+    client: Client;
 
-  @Column()
-  clientId: number;
+    @Column()
+    date: string;
 
-  @OneToOne(type => Client, client => client.id)
-  @JoinColumn()
-  client: Client;
+    @Column()
+    startTime: string;
 
-  @Column()
-  date: string;
+    @Column()
+    finishTime: string;
 
-  @Column()
-  startTime: string;
+    @Column()
+    price: number;
 
-  @Column()
-  finishTime: string;
+    @Column()
+    comment: string | null;
 
-  @Column()
-  price: number;
+    @Column()
+    status: string;
 
-  @Column()
-  comment: string | null;
+    static getOperationForCreate(date) {
+        const operation = new Operation();
 
-  @Column()
-  status: string;
+        const operationType = new OperationType();
+        operationType.id = 1;
 
-  static getOperationForCreate(date) {
-    const operation = new Operation();
+        const client = new Client();
+        client.id = 1;
 
-    const operationType = new OperationType();
-    operationType.id = 1;
+        operation.operationType = operationType;
+        operation.client = client;
 
-    const client = new Client();
-    client.id = 1;
+        // TODO add new date + 2 days
+        operation.date = date;
+        operation.startTime = '10:00';
+        operation.finishTime = '12:00';
+        operation.price = DEFAULT_PRICE;
+        operation.status = OPEN_STATUS;
 
-    operation.operationType = operationType;
-    operation.client = client;
-
-    // TODO add new date + 2 days
-    operation.date = date;
-    operation.startTime = '10:00';
-    operation.finishTime = '12:00';
-    operation.price = DEFAULT_PRICE;
-    operation.status = OPEN_STATUS;
-
-    return operation;
-  }
+        return operation;
+    }
 }

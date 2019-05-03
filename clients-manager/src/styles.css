@@ -1,10 +1,14 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~fullcalendar/dist/fullcalendar.min.css";
+@import "~jquery-ui-themes/themes/blitzer/jquery-ui.min.css";
+@import "~jquery-ui-themes/themes/blitzer/theme.css";
 @import "~@fortawesome/fontawesome-free/css/all.css";
-@import "~@fullcalendar/core/main.css";
-@import "~@fullcalendar/daygrid/main.css";
-@import "~@fullcalendar/timegrid/main.css";
-@import "~@fullcalendar/list/main.css";
-@import "~@fullcalendar/bootstrap/main.css";
+
+.fc-center {
+  background: #ffffff;
+  opacity: 0.8;
+  border-radius: 5px;
+}
 
 .time-picker {
   margin-left: 15px;
@@ -12,14 +16,4 @@
 
 .price-length {
   width: 140px
-}
-
-.fc-view-container{
-  background-color: white;
-}
-
-.fc-center {
-  background: #ffffff;
-  opacity: 0.8;
-  border-radius: 5px;
 }

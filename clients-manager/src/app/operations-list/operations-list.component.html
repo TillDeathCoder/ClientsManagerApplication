@@ -1,0 +1,38 @@
+<ngb-pagination [collectionSize]="operations.length" [(page)]="page" [pageSize]="pageSize" aria-label="Default pagination"></ngb-pagination>
+<div class="row">
+  <div class="col-sm-6" *ngFor="let operation of operations | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><i class="fas fa-user-tie"></i> {{operation.client.firstName}} {{operation.client.lastName}}
+        </h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngIf="operation.client.phoneNumber">
+          <i class="fas fa-phone"></i> {{operation.client.phoneNumber}}
+        </li>
+        <li class="list-group-item" *ngIf="operation.client.internetLink">
+          <i class="fas fa-external-link-square-alt"></i> <a href="{{operation.client.internetLink}}"> {{operation.client.internetLink}}</a>
+        </li>
+        <li class="list-group-item">
+          <i class="fas fa-calendar-alt"></i> {{operation.date}}
+        </li>
+        <li class="list-group-item">
+          <i class="fas fa-hourglass-end"></i> {{operation.startTime}} - {{operation.finishTime}}
+        </li>
+        <li class="list-group-item">
+          <i class="fas fa-money-bill"></i> {{operation.price}}
+        </li>
+        <li class="list-group-item" *ngIf="operation.comment">
+          <i class="fas fa-comments"></i> {{operation.comment}}
+        </li>
+      </ul>
+      <div class="card-body">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-success" (click)="changeStatus('closed', operation)">Закрыть <i class="fas fa-thumbs-up"></i></button>
+          <button type="button" class="btn btn-danger" (click)="changeStatus('canceled', operation)">Отменить <i class="fas fa-ban"></i></button>
+          <button type="button" class="btn btn-warning" (click)="openEditModal(operation)">Редактировать <i class="fas fa-edit"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
