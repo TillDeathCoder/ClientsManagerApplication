@@ -6,7 +6,7 @@ import {OperationEditComponent} from '../operation-edit/operation-edit.component
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'app-operation-details',
+  selector: 'rp-operation-details',
   templateUrl: './operation-details.component.html',
   styleUrls: ['./operation-details.component.css']
 })

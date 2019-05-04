@@ -5,7 +5,6 @@ import {OperationService} from '../service/operation.service';
 import {Client} from '../entity/client';
 import {OperationType} from '../entity/operation-type';
 import {ClientService} from '../service/client.service';
-import {ClientsManagerLogger} from '../utils/clients-manager-logger';
 import {ClientsManagerDateFormatter} from '../utils/clients-manager-date-formatter';
 import {ClientsManagerDatepickerLocaleFormatter} from '../utils/clients-manager-datepicker-locale-formatter';
 import {ClientsManagerTimeFormatter} from '../utils/clients-manager-time-formatter';
@@ -15,9 +14,10 @@ import {isNumber} from 'util';
 import {Observable} from 'rxjs';
 import {from} from 'rxjs/internal/observable/from';
 import {ClientEditComponent} from '../client-edit/client-edit.component';
+import {NGXLogger} from 'ngx-logger';
 
 @Component({
-    selector: 'app-operation-edit',
+    selector: 'rp-operation-edit',
     templateUrl: './operation-edit.component.html',
     styleUrls: ['./operation-edit.component.css'],
     providers: [
@@ -31,7 +31,7 @@ export class OperationEditComponent implements OnInit {
                 private modalService: NgbModal,
                 private operationService: OperationService,
                 private clientService: ClientService,
-                private logger: ClientsManagerLogger,
+                private logger: NGXLogger,
                 private dateFormatter: NgbDateParserFormatter,
                 private timeFormatter: ClientsManagerTimeFormatter,
                 private operationValidator: OperationValidator) {
@@ -58,8 +58,15 @@ export class OperationEditComponent implements OnInit {
             this.clients = clients;
         });
 
-        this.operationTypeControl = new FormControl(this.operation.operationType);
-        this.clientControl = new FormControl(this.operation.client);
+        this.operationTypeControl = new FormControl(this.operation.operationType, [(control: FormControl) => {
+            this.operation.operationType = control.value;
+            return null;
+        }]);
+
+        this.clientControl = new FormControl(this.operation.client, [(control: FormControl) => {
+            this.operation.client = control.value;
+            return null;
+        }]);
 
         this.timeStartControl = new FormControl(this.timeFormatter.formatTime(this.operation.startTime), [(control: FormControl) => {
                 const startValue = control.value;
@@ -150,16 +157,6 @@ export class OperationEditComponent implements OnInit {
         this.dateTimeStatus = result === null;
     }
 
-    setType(operationType) {
-        this.operation.operationType = operationType;
-    }
-
-    setClient(client) {
-        console.log(client);
-        this.operation.client = client;
-        console.log(this.operation);
-    }
-
     addClient() {
         const modalRef = this.modalService.open(ClientEditComponent);
         modalRef.componentInstance.client = Client.getClientForCreate();
@@ -169,13 +166,13 @@ export class OperationEditComponent implements OnInit {
                 this.operation.client = result.client;
             }
         }).catch(error => {
-            console.log(error);
+            this.logger.error(error);
             this.activeModal.close(error);
             // TODO redirect to error page
         });
     }
 
-    compare(c1: any, c2: any): boolean {
-        return +c1.id === +c2.id;
+    compare(first: any, second: any): boolean {
+        return +first.id === +second.id;
     }
 }

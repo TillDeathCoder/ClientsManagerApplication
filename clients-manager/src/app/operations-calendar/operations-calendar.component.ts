@@ -5,18 +5,18 @@ import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {OperationCalendarEventConverter} from '../utils/operation-calendar-event-converter';
 import {OperationService} from '../service/operation.service';
 import {Operation} from '../entity/operation';
-import {ClientsManagerLogger} from '../utils/clients-manager-logger';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import {OperationEditComponent} from '../operation-edit/operation-edit.component';
 import {isMoment} from 'moment';
 import {Options} from 'fullcalendar';
 import {from} from 'rxjs';
+import {NGXLogger} from 'ngx-logger';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 
 @Component({
-  selector: 'app-operations-calendar',
+  selector: 'rp-operations-calendar',
   templateUrl: './operations-calendar.component.html',
   styleUrls: ['./operations-calendar.component.css']
 })
@@ -30,12 +30,12 @@ export class OperationsCalendarComponent implements OnInit {
               private modalService: NgbModal,
               public activeModal: NgbActiveModal,
               private operationCalendarEventConverter: OperationCalendarEventConverter,
-              private logger: ClientsManagerLogger) {
+              private logger: NGXLogger) {
   }
 
   ngOnInit() {
     from(this.operationService.getAllOperations()).subscribe((data: Operation[]) => {
-        this.logger.logResponse(data);
+        this.logger.log(data);
         this.calendarOptions = {
           header: {
             left: 'createEventButton today prev,next',
@@ -70,7 +70,7 @@ export class OperationsCalendarComponent implements OnInit {
         };
       },
       error => {
-        this.logger.logError(error);
+        this.logger.error(error);
         // TODO redirect to error page
       });
   }
@@ -81,7 +81,7 @@ export class OperationsCalendarComponent implements OnInit {
     modalRef.result.then((result) => {
       this.renderEvents();
     }).catch(error => {
-      this.logger.logError(error);
+      this.logger.error(error);
       // TODO redirect to error page
     });
   }

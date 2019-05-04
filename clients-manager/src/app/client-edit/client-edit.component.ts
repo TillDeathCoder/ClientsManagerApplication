@@ -7,7 +7,7 @@ import {ClientService} from '../service/client.service';
 const ACTIVE_STATUS = 'ACTIVE';
 
 @Component({
-  selector: 'app-client-edit',
+  selector: 'rp-client-edit',
   templateUrl: './client-edit.component.html',
   styleUrls: ['./client-edit.component.css']
 })

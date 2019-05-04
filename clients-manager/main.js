@@ -20,7 +20,7 @@ function createWindow() {
         // load the dist folder from Angular
         win.loadURL(url.format({
             pathname: path.join(__dirname, "/dist/index.html"),
-            protocol: "file:",
+            protocol: 'file:',
             slashes: true
         }));
     }
@@ -44,7 +44,7 @@ try {
         }
     });
     // initialize the app's main window
-    electron_1.app.on("activate", function () {
+    electron_1.app.on('activate', function () {
         if (win === null) {
             createWindow();
         }

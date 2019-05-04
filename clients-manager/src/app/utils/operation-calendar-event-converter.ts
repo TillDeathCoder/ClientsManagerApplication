@@ -42,7 +42,7 @@ export class OperationCalendarEventConverter {
       title: this.buildTitle(operation),
       start: this.buildDateTime(operation.date, operation.startTime),
       end: this.buildDateTime(operation.date, operation.finishTime),
-      color: this.definyColor(operation.operationType),
+      color: this.findColor(operation.operationType),
       editable: false,
       fullData: this.transformOperation(operation)
     };
@@ -61,7 +61,7 @@ export class OperationCalendarEventConverter {
     return `${dateFormatted}T${time}`;
   }
 
-  private definyColor(operationType: OperationType) {
+  private findColor(operationType: OperationType) {
     switch (+operationType.id) {
       case SIMPLE_EYELASH_EXTENSION_TYPE_ID:
         return SIMPLE_EYELASH_EXTENSION_TYPE_COLOR;
