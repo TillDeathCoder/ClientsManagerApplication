@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {Operation} from '../../entity/operation';
 import {ClientsManagerTimeFormatter} from '../formatter/clients-manager-time-formatter';
 import {NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
-import {OperationService} from '../../service/operation.service';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import {environment} from '../../../environments/environment';
+import {CRUDService} from '../../service/crud.service';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +13,7 @@ import {environment} from '../../../environments/environment';
 export class OperationValidator {
 
     constructor(private timeFormatter: ClientsManagerTimeFormatter,
-                private operationService: OperationService) {
+                private crudService: CRUDService) {
     }
 
     validateStartAndFinishTimeValue(operation: Operation) {
@@ -34,9 +34,10 @@ export class OperationValidator {
     }
 
     validateDateTimeRange(operation: Operation) {
-        return this.operationService.getAllOperations().then(response => {
-            if (_.isArray(response)) {
-                const result = _.filter(response, current => {
+        return this.crudService.getAllWithJoin(Operation, {relations: ['client', 'operationType']})
+            .then(operations => {
+            if (_.isArray(operations)) {
+                const result = _.filter(operations, current => {
                     if (this.checkEqualsCriteria(current, operation)) {
                         return !this.validateTimeRange(current, operation);
                     }

@@ -13,6 +13,7 @@ import {OperationDetailsComponent} from './operation-details/operation-details.c
 import {OperationsCalendarComponent} from './operations-calendar/operations-calendar.component';
 import {OperationEditComponent} from './operation-edit/operation-edit.component';
 import { ClientEditComponent } from './client-edit/client-edit.component';
+import { ErrorDetailsComponent } from './error-details/error-details.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ClientEditComponent } from './client-edit/client-edit.component';
     OperationDetailsComponent,
     OperationsCalendarComponent,
     OperationEditComponent,
-    ClientEditComponent
+    ClientEditComponent,
+    ErrorDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,7 @@ import { ClientEditComponent } from './client-edit/client-edit.component';
   ],
   providers: [NgbActiveModal],
   bootstrap: [AppComponent],
-  entryComponents: [OperationDetailsComponent, OperationEditComponent, ClientEditComponent]
+  entryComponents: [OperationDetailsComponent, OperationEditComponent, ClientEditComponent, ErrorDetailsComponent]
 })
 export class AppModule {
 }

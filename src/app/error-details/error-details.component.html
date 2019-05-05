@@ -1,0 +1,12 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">Ошибка</h4>
+  <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="activeModal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <span class="text-danger">{{message}}</span>
+</div>
+<div class="modal-footer">
+  <button type="button" ngbAutofocus class="btn btn-danger" (click)="activeModal.close()">Закрыть <i class="fas fa-thumbs-up"></i></button>
+</div>

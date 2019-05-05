@@ -1,10 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Operation} from '../entity/operation';
 import {NgbActiveModal, NgbDateParserFormatter, NgbDatepickerI18n, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {OperationService} from '../service/operation.service';
 import {Client} from '../entity/client';
 import {OperationType} from '../entity/operation-type';
-import {ClientService} from '../service/client.service';
 import {ClientsManagerDateFormatter} from '../utils/formatter/clients-manager-date-formatter';
 import {ClientsManagerDatepickerLocaleFormatter} from '../utils/formatter/clients-manager-datepicker-locale-formatter';
 import {ClientsManagerTimeFormatter} from '../utils/formatter/clients-manager-time-formatter';
@@ -14,7 +12,8 @@ import {isNumber} from 'util';
 import {Observable} from 'rxjs';
 import {from} from 'rxjs/internal/observable/from';
 import {ClientEditComponent} from '../client-edit/client-edit.component';
-import {NGXLogger} from 'ngx-logger';
+import {ErrorService} from '../service/error.service';
+import {CRUDService} from '../service/crud.service';
 
 @Component({
     selector: 'rp-operation-edit',
@@ -29,12 +28,11 @@ export class OperationEditComponent implements OnInit {
 
     constructor(public activeModal: NgbActiveModal,
                 private modalService: NgbModal,
-                private operationService: OperationService,
-                private clientService: ClientService,
-                private logger: NGXLogger,
                 private dateFormatter: NgbDateParserFormatter,
                 private timeFormatter: ClientsManagerTimeFormatter,
-                private operationValidator: OperationValidator) {
+                private operationValidator: OperationValidator,
+                private errorService: ErrorService,
+                private crudService: CRUDService) {
     }
 
     @Input() operation: Operation;
@@ -50,11 +48,11 @@ export class OperationEditComponent implements OnInit {
     priceControl: FormControl;
 
     ngOnInit() {
-        from(this.operationService.getAllOperationTypes()).subscribe(types => {
+        from(this.crudService.getAll(OperationType)).subscribe(types => {
             this.operationTypes = types;
         });
 
-        from(this.clientService.getAllClients()).subscribe(clients => {
+        from(this.crudService.getAll(Client)).subscribe(clients => {
             this.clients = clients;
         });
 
@@ -127,6 +125,7 @@ export class OperationEditComponent implements OnInit {
             if (isNumber(value)) {
                 if (value > 0) {
                     this.priceStatus = true;
+                    this.operation.price = value;
                     return null;
                 }
             }
@@ -141,12 +140,9 @@ export class OperationEditComponent implements OnInit {
     async save() {
         let result;
         if (this.operation.id) {
-            result = await this.operationService.updateOperation(this.operation);
+            result = await this.crudService.update(Operation, this.operation);
         } else {
-            result = await this.operationService.createOperation(this.operation);
-        }
-        if (result === {}) {
-            // TODO add redirect to error page
+            result = await this.crudService.create(Operation, this.operation);
         }
         this.activeModal.close(result);
     }
@@ -163,12 +159,10 @@ export class OperationEditComponent implements OnInit {
         modalRef.result.then((result) => {
             if (result && result.isNew) {
                 this.clients.push(result.client);
-                this.operation.client = result.client;
+                this.clientControl.setValue(result.client);
             }
         }).catch(error => {
-            this.logger.error(error);
-            this.activeModal.close(error);
-            // TODO redirect to error page
+            this.errorService.showError('Create client error', error);
         });
     }
 

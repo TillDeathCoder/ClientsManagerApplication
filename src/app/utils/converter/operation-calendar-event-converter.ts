@@ -52,13 +52,13 @@ export class OperationCalendarEventConverter {
     private findColor(operationType: OperationType) {
         switch (+operationType.id) {
             case environment.operationTypes.SIMPLE_EYELASH_EXTENSION_TYPE_ID:
-                return environment.calendar.SIMPLE_EYELASH_EXTENSION_TYPE_COLOR;
+                return environment.calendar.colors.SIMPLE_EYELASH_EXTENSION_TYPE_COLOR;
             case environment.operationTypes.EYELASH_REMOVAL_TYPE_ID :
-                return environment.calendar.EYELASH_REMOVAL_TYPE_COLOR;
+                return environment.calendar.colors.EYELASH_REMOVAL_TYPE_COLOR;
             case environment.operationTypes.COMBO_TYPE_ID:
-                return environment.calendar.COMBO_TYPE_COLOR;
+                return environment.calendar.colors.COMBO_TYPE_COLOR;
             default:
-                return environment.calendar.DEFAULT_COLOR;
+                return environment.calendar.colors.DEFAULT_COLOR;
         }
     }
 

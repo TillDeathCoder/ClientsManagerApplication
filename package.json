@@ -1,9 +1,9 @@
 {
-  "name": "clients-manager",
+  "name": "clients-manager-application",
   "version": "0.0.1",
   "main": "main.js",
-  "description": "This desctop application is created to control the flow of customers, income and expenses of money for the provision of cosmetology services.",
-  "homepage": "https://github.com/TillDeathCoder/ClientsManagerApplication",
+  "description": "This desktop application is created to control the flow of customers, income and expenses of money for the provision of cosmetology services.",
+  "homepage": "https://github.com/TillDeathCoder/clients-manager-application",
   "author": {
     "name": "Eugene Makareno",
     "email": "eugene.makarenko.work@gmail.com"
@@ -14,12 +14,10 @@
     "electron",
     "typescript",
     "typeorm",
-    "sass",
-    "scss",
     "bootstrap",
     "fullcalendar",
     "jquery",
-    "sqllite",
+    "sqlite3",
     "node.js"
   ],
   "scripts": {

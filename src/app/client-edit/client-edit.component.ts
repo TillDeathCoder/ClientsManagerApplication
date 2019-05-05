@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl} from '@angular/forms';
 import {Client} from '../entity/client';
-import {ClientService} from '../service/client.service';
 import {environment} from '../../environments/environment';
+import {CRUDService} from '../service/crud.service';
 
 @Component({
   selector: 'rp-client-edit',
@@ -19,7 +19,7 @@ export class ClientEditComponent implements OnInit {
   isPhoneValid = true;
 
   constructor(public activeModal: NgbActiveModal,
-              private clientService: ClientService) {
+              private crudService: CRUDService) {
   }
 
   ngOnInit() {
@@ -66,17 +66,14 @@ export class ClientEditComponent implements OnInit {
     if (this.client.id) {
       result = {
         isNew: false,
-        client: await this.clientService.updateClient(this.client)
+        client: await this.crudService.update(Client, this.client)
       };
     } else {
       this.client.status = environment.clients.ACTIVE_STATUS;
       result = {
         isNew: true,
-        client: await this.clientService.createClient(this.client)
+        client: await this.crudService.create(Client, this.client)
       };
-    }
-    if (result.client === {}) {
-      // TODO add redirect to error page
     }
     this.activeModal.close(result);
   }

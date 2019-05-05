@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 @Injectable({
     providedIn: 'root'
 })
-export class DatabaseService {
+export class DatabaseConnectionHolder {
 
     public connection: Promise<Connection>;
     private readonly options: ConnectionOptions;

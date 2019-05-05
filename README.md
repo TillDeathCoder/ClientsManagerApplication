@@ -12,4 +12,4 @@ Types of cosmetology services that are supported in the application:
 * Electron
 * Bootstrap
 * Angular
-* MySQL
+* SQLite3
