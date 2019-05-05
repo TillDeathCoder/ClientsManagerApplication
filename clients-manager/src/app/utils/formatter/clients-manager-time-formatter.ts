@@ -26,7 +26,17 @@ export class ClientsManagerTimeFormatter {
   }
 
   formatString(value) {
-    return `${value.hour}:${value.minute}:00`;
+    const hours = this.formatZero(value.hour);
+    const minutes = this.formatZero(value.minute);
+
+    return `${hours}:${minutes}:00`;
+  }
+
+  formatZero(value) {
+    if (+value === 0) {
+      return '00';
+    }
+    return value;
   }
 
 }

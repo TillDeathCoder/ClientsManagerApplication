@@ -4,6 +4,7 @@ import {Operation} from '../entity/operation';
 import {OperationService} from '../service/operation.service';
 import {OperationEditComponent} from '../operation-edit/operation-edit.component';
 import * as _ from 'lodash';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'rp-operation-details',
@@ -25,10 +26,18 @@ export class OperationDetailsComponent implements OnInit {
   ngOnInit() {
   }
 
+  async closeOperation() {
+    await this.changeStatus(environment.operations.CLOSED_STATUS);
+  }
+
+  async cancelOperation() {
+    await this.changeStatus(environment.operations.CANCELLED_STATUS);
+  }
+
   async changeStatus(status: string) {
     this.operation.status = status;
     const result = await this.operationService.updateOperation(this.operation);
-    if (result === null) {
+    if (result === {}) {
       // TODO add redirect to error page
     }
     this.activeModal.close(result);

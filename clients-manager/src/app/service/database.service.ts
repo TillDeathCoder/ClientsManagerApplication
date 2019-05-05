@@ -3,6 +3,7 @@ import {Connection, ConnectionOptions, createConnection} from 'typeorm';
 import {Client} from '../entity/client';
 import {OperationType} from '../entity/operation-type';
 import {Operation} from '../entity/operation';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -13,15 +14,12 @@ export class DatabaseService {
     private readonly options: ConnectionOptions;
 
     constructor() {
+        // @ts-ignore
         this.options = {
-            type: 'mysql',
-            host: 'localhost',
-            port: 3306,
-            username: 'root',
-            password: 'password',
-            database: 'clients_manager_database',
-            entities: [Client, OperationType, Operation],
-            logging: false
+            type: environment.databaseConfiguration.type,
+            database: environment.databaseConfiguration.database,
+            logging: environment.databaseConfiguration.logging,
+            entities: [Client, OperationType, Operation]
         };
         this.connection = createConnection(this.options);
     }

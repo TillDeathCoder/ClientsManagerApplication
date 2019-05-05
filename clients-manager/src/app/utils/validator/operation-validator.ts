@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Operation} from '../entity/operation';
-import {ClientsManagerTimeFormatter} from './clients-manager-time-formatter';
+import {Operation} from '../../entity/operation';
+import {ClientsManagerTimeFormatter} from '../formatter/clients-manager-time-formatter';
 import {NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
-import {OperationService} from '../service/operation.service';
+import {OperationService} from '../../service/operation.service';
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -36,7 +37,7 @@ export class OperationValidator {
         return this.operationService.getAllOperations().then(response => {
             if (_.isArray(response)) {
                 const result = _.filter(response, current => {
-                    if (moment(current.date).isSame(moment(operation.date)) && current.status === 'OPEN' && current.id !== operation.id) {
+                    if (this.checkEqualsCriteria(current, operation)) {
                         return !this.validateTimeRange(current, operation);
                     }
                     return false;
@@ -48,6 +49,12 @@ export class OperationValidator {
             }
             return null;
         });
+    }
+
+    private checkEqualsCriteria(current, operation) {
+        return moment(current.date).isSame(moment(operation.date))
+            && current.status === environment.operations.OPEN_STATUS
+            && current.id !== operation.id;
     }
 
     private validateTimeRange(current: Operation, operation: Operation) {

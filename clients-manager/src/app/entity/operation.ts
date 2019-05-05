@@ -2,9 +2,7 @@ import {OperationType} from './operation-type';
 import {Client} from './client';
 import {ClientsManagerEntity} from './clients.manager.entity';
 import {Column, Entity, JoinColumn, OneToOne} from 'typeorm';
-
-const OPEN_STATUS = 'OPEN';
-const DEFAULT_PRICE = 25;
+import {environment} from '../../environments/environment';
 
 @Entity('operations')
 export class Operation extends ClientsManagerEntity {
@@ -46,13 +44,11 @@ export class Operation extends ClientsManagerEntity {
 
         operation.operationType = operationType;
         operation.client = client;
-
-        // TODO add new date + 2 days
         operation.date = date;
-        operation.startTime = '10:00';
-        operation.finishTime = '12:00';
-        operation.price = DEFAULT_PRICE;
-        operation.status = OPEN_STATUS;
+        operation.startTime = environment.operations.DEFAULT_START;
+        operation.finishTime = environment.operations.DEFAULT_FINISH;
+        operation.price = environment.operations.DEFAULT_PRICE;
+        operation.status = environment.operations.OPEN_STATUS;
 
         return operation;
     }

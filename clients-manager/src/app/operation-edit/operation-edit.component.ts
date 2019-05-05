@@ -5,11 +5,11 @@ import {OperationService} from '../service/operation.service';
 import {Client} from '../entity/client';
 import {OperationType} from '../entity/operation-type';
 import {ClientService} from '../service/client.service';
-import {ClientsManagerDateFormatter} from '../utils/clients-manager-date-formatter';
-import {ClientsManagerDatepickerLocaleFormatter} from '../utils/clients-manager-datepicker-locale-formatter';
-import {ClientsManagerTimeFormatter} from '../utils/clients-manager-time-formatter';
+import {ClientsManagerDateFormatter} from '../utils/formatter/clients-manager-date-formatter';
+import {ClientsManagerDatepickerLocaleFormatter} from '../utils/formatter/clients-manager-datepicker-locale-formatter';
+import {ClientsManagerTimeFormatter} from '../utils/formatter/clients-manager-time-formatter';
 import {FormControl} from '@angular/forms';
-import {OperationValidator} from '../utils/operation-validator';
+import {OperationValidator} from '../utils/validator/operation-validator';
 import {isNumber} from 'util';
 import {Observable} from 'rxjs';
 import {from} from 'rxjs/internal/observable/from';
@@ -173,6 +173,6 @@ export class OperationEditComponent implements OnInit {
     }
 
     compare(first: any, second: any): boolean {
-        return +first.id === +second.id;
+        return first.id === second.id;
     }
 }

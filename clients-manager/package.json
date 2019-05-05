@@ -19,7 +19,7 @@
     "bootstrap",
     "fullcalendar",
     "jquery",
-    "mysql",
+    "sqllite",
     "node.js"
   ],
   "scripts": {
@@ -44,18 +44,18 @@
     "@angular/animations": "^6.1.1",
     "@angular/common": "^6.1.1",
     "@angular/compiler": "^6.1.1",
+    "@angular/forms": "^6.1.1",
     "@angular/router": "^6.1.1",
     "@fortawesome/fontawesome-free": "^5.3.1",
     "@types/jquery": "^3.3.29",
-    "@angular/forms": "^6.1.1",
     "bootstrap": "^4.2.1",
     "fullcalendar": "^3.6.1",
     "jquery": "^3.4.0",
     "jquery-ui-dist": "^1.12.0",
     "jquery-ui-themes": "^1.12.0",
-    "mysql": "^2.17.1",
-    "ng-fullcalendar": "^1.7.1",
     "moment": "^2.23.0",
+    "ng-fullcalendar": "^1.7.1",
+    "sqlite3": "^4.0.6",
     "typeorm": "^0.2.7"
   },
   "devDependencies": {

@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {CalendarComponent} from 'ng-fullcalendar';
 import {OperationDetailsComponent} from '../operation-details/operation-details.component';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {OperationCalendarEventConverter} from '../utils/operation-calendar-event-converter';
+import {OperationCalendarEventConverter} from '../utils/converter/operation-calendar-event-converter';
 import {OperationService} from '../service/operation.service';
 import {Operation} from '../entity/operation';
 import * as _ from 'lodash';
@@ -12,8 +12,7 @@ import {isMoment} from 'moment';
 import {Options} from 'fullcalendar';
 import {from} from 'rxjs';
 import {NGXLogger} from 'ngx-logger';
-
-const DATE_FORMAT = 'YYYY-MM-DD';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'rp-operations-calendar',
@@ -35,7 +34,6 @@ export class OperationsCalendarComponent implements OnInit {
 
   ngOnInit() {
     from(this.operationService.getAllOperations()).subscribe((data: Operation[]) => {
-        this.logger.log(data);
         this.calendarOptions = {
           header: {
             left: 'createEventButton today prev,next',
@@ -68,10 +66,6 @@ export class OperationsCalendarComponent implements OnInit {
           },
           timeFormat: 'HH:mm'
         };
-      },
-      error => {
-        this.logger.error(error);
-        // TODO redirect to error page
       });
   }
 
@@ -94,9 +88,9 @@ export class OperationsCalendarComponent implements OnInit {
 
   createEvent(event) {
     if (isMoment(event) || (event.detail && event.detail.buttonType === 'createEventButton')) {
-      let formattedDate = moment(new Date()).format(DATE_FORMAT);
+      let formattedDate = moment(new Date()).format(environment.formats.DATE_FORMAT);
       if (isMoment(event)) {
-         formattedDate = moment(event).format(DATE_FORMAT);
+         formattedDate = moment(event).format(environment.formats.DATE_FORMAT);
       }
       const modalRef = this.modalService.open(OperationEditComponent);
       modalRef.componentInstance.operation = _.cloneDeep(Operation.getOperationForCreate(formattedDate));
@@ -104,6 +98,7 @@ export class OperationsCalendarComponent implements OnInit {
         this.activeModal.close(result);
         this.renderEvents();
       }).catch(error => {
+        this.logger.error(error);
         this.activeModal.close(error);
         // TODO redirect to error page
       });

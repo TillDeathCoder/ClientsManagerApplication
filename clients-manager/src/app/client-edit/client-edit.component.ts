@@ -3,8 +3,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, Validators} from '@angular/forms';
 import {Client} from '../entity/client';
 import {ClientService} from '../service/client.service';
-
-const ACTIVE_STATUS = 'ACTIVE';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'rp-client-edit',
@@ -46,7 +45,7 @@ export class ClientEditComponent implements OnInit {
         return null;
       }
 
-      if (value.match('(^\\+375(25|29|44|33)\\d{7}$)|(^80(25|29|44|33)\\d{7}$)')) {
+      if (value.match(environment.formats.PHONE_NUMBER_FORMAT)) {
         this.client.phoneNumber = value;
         this.isPhoneValid = true;
         return null;
@@ -70,7 +69,7 @@ export class ClientEditComponent implements OnInit {
         client: await this.clientService.updateClient(this.client)
       };
     } else {
-      this.client.status = ACTIVE_STATUS;
+      this.client.status = environment.clients.ACTIVE_STATUS;
       result = {
         isNew: true,
         client: await this.clientService.createClient(this.client)
