@@ -1,3 +1,43 @@
-<p>
-  clients works!
-</p>
+<div>
+    <div class="input-group mb-3 search-input">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="searchName" placeholder="Введите имя...">
+    </div>
+    <div class="card-deck">
+        <div *ngFor="let client of clients | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | nameFilter : searchName">
+            <div class="card card-wrapper">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-user-tie"></i> {{client.firstName}} {{client.lastName}}
+                    </h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" *ngIf="client.nickname">
+                        <i class="fas fa-external-link-square-alt"></i> {{client.nickname}}
+                    </li>
+                    <li class="list-group-item" *ngIf="client.phoneNumber">
+                        <i class="fas fa-external-link-square-alt"></i> {{client.phoneNumber}}
+                    </li>
+                    <li class="list-group-item" *ngIf="client.internetLink">
+                        <i class="fas fa-external-link-square-alt"></i> <a
+                            href="{{client.internetLink}}"> {{client.internetLink}}</a>
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-danger">Отменить <i class="fas fa-ban"></i></button>
+                        <button type="button" class="btn btn-warning">Редактировать <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pagination-wrapper">
+        <ngb-pagination class="d-flex justify-content-center"
+                        [(page)]="page"
+                        [pageSize]="pageSize"
+                        [collectionSize]="clients.length"></ngb-pagination>
+    </div>
+</div>

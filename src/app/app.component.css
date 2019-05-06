@@ -2,14 +2,6 @@
   margin-top: 1%;
 }
 
-.main-page-settings{
-  background-image: url("../assets/image/background.jpg");
-  height: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .menu-link {
   color: #000000;
   font-weight: 800;

@@ -1,0 +1,12 @@
+.card-wrapper {
+    margin-bottom: 20px;
+}
+
+.pagination-wrapper {
+    position: fixed;
+    bottom: 5%;
+}
+
+.search-input {
+    width: 200px;
+}

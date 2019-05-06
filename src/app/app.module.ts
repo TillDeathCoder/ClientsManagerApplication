@@ -12,31 +12,37 @@ import {ClientsComponent} from './clients/clients.component';
 import {OperationDetailsComponent} from './operation-details/operation-details.component';
 import {OperationsCalendarComponent} from './operations-calendar/operations-calendar.component';
 import {OperationEditComponent} from './operation-edit/operation-edit.component';
-import { ClientEditComponent } from './client-edit/client-edit.component';
-import { ErrorDetailsComponent } from './error-details/error-details.component';
+import {ClientEditComponent} from './client-edit/client-edit.component';
+import {ErrorDetailsComponent} from './error-details/error-details.component';
+import {ClientsNameFilter} from './utils/filter/clients.name.filter';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ClientsComponent,
-    OperationDetailsComponent,
-    OperationsCalendarComponent,
-    OperationEditComponent,
-    ClientEditComponent,
-    ErrorDetailsComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    FullCalendarModule,
-    LoggerModule.forRoot({serverLoggingUrl: '/api/logs', level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR}),
-    FormsModule,
-    ReactiveFormsModule
-  ],
-  providers: [NgbActiveModal],
-  bootstrap: [AppComponent],
-  entryComponents: [OperationDetailsComponent, OperationEditComponent, ClientEditComponent, ErrorDetailsComponent]
+    declarations: [
+        AppComponent,
+        ClientsComponent,
+        OperationDetailsComponent,
+        OperationsCalendarComponent,
+        OperationEditComponent,
+        ClientEditComponent,
+        ErrorDetailsComponent,
+        ClientsNameFilter
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgbModule,
+        FullCalendarModule,
+        LoggerModule.forRoot({
+            serverLoggingUrl: '/api/logs',
+            level: NgxLoggerLevel.DEBUG,
+            serverLogLevel: NgxLoggerLevel.ERROR
+        }),
+        FormsModule,
+        ReactiveFormsModule
+    ],
+    providers: [NgbActiveModal],
+    bootstrap: [AppComponent],
+    entryComponents: [OperationDetailsComponent, OperationEditComponent, ClientEditComponent, ErrorDetailsComponent]
 })
 export class AppModule {
 }
