@@ -15,6 +15,7 @@ import {OperationEditComponent} from './operation-edit/operation-edit.component'
 import {ClientEditComponent} from './client-edit/client-edit.component';
 import {ErrorDetailsComponent} from './error-details/error-details.component';
 import {ClientsNameFilter} from './utils/filter/clients.name.filter';
+import { StatisticComponent } from './statistic/statistic.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import {ClientsNameFilter} from './utils/filter/clients.name.filter';
         OperationEditComponent,
         ClientEditComponent,
         ErrorDetailsComponent,
-        ClientsNameFilter
+        ClientsNameFilter,
+        StatisticComponent
     ],
     imports: [
         BrowserModule,

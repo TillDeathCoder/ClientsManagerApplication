@@ -1,12 +1,18 @@
 <div>
-    <div class="input-group mb-3 search-input">
+    <div class="input-group mb-3 search-input form-inline">
         <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
         </div>
-        <input type="text" class="form-control" [(ngModel)]="searchName" placeholder="Введите имя...">
+        <input type="text" class="form-control mr-sm-2" placeholder="Введите имя..."
+               [(ngModel)]="searchName">
+        <button type="button" class="btn btn-light" (click)="addClient()">Добавить клиента <i
+                class="fas fa-user-plus"></i></button>
     </div>
     <div class="card-deck">
-        <div *ngFor="let client of clients | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | nameFilter : searchName">
+        <div *ngFor="
+        let client of (clients
+        | nameFilter: searchName
+        | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize) as filteredClients">
             <div class="card card-wrapper">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-user-tie"></i> {{client.firstName}} {{client.lastName}}
@@ -26,9 +32,9 @@
                 </ul>
                 <div class="card-body">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-danger">Отменить <i class="fas fa-ban"></i></button>
-                        <button type="button" class="btn btn-warning">Редактировать <i class="fas fa-edit"></i>
-                        </button>
+                        <button type="button" class="btn btn-warning" (click)="editClient(client)">Редактировать <i
+                                class="fas fa-edit"></i></button>
+                        <button type="button" class="btn btn-danger">Удалить <i class="fas fa-trash"></i></button>
                     </div>
                 </div>
             </div>

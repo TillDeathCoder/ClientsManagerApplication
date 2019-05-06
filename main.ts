@@ -2,6 +2,7 @@ import {app, BrowserWindow, Menu, Tray} from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
+process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true';
 let win: BrowserWindow = null;
 
 // detect serve mode
@@ -10,8 +11,7 @@ const serve: boolean = args.some(val => val === '--serve');
 
 function createWindow() {
 
-    win = new BrowserWindow({width: 800, height: 600});
-
+    win = new BrowserWindow({minWidth: 1100, icon: path.join(__dirname, '/src/assets/icons/favicon.ico')});
 
     if (serve) {
         // get dynamic version from localhost:4200
@@ -25,15 +25,13 @@ function createWindow() {
             url.format({
                 pathname: path.join(__dirname, `/dist/index.html`),
                 protocol: 'file:',
-                slashes: true,
-                // icon: path.join(__dirname, 'assets/icons/favicon.png')
+                slashes: true
             })
         );
     }
 
-
-    // The following is optional and will open the DevTools:
-    win.webContents.openDevTools();
+    win.maximize();
+    win.setMenuBarVisibility(false);
 
     win.on('closed', () => {
         win = null;
