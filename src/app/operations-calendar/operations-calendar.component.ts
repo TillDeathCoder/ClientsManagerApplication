@@ -39,7 +39,7 @@ export class OperationsCalendarComponent implements OnInit {
     }
 
     eventClick(model) {
-        const modalRef = this.modalService.open(OperationDetailsComponent);
+        const modalRef = this.modalService.open(OperationDetailsComponent, {backdrop: 'static', keyboard: false});
         modalRef.componentInstance.operation = model;
         modalRef.result.then((result) => {
             if (result && result.isEdit) {
@@ -49,18 +49,18 @@ export class OperationsCalendarComponent implements OnInit {
                 this.renderEvents();
             }
         }).catch(error => {
-            this.errorService.showError('Open event error', error);
+            this.errorService.showError(environment.messages.errors.GET_OPERATION_COMPONENT, error);
         });
     }
 
     openEditModal(operation) {
-        const modalRef = this.modalService.open(OperationEditComponent);
+        const modalRef = this.modalService.open(OperationEditComponent, {backdrop: 'static', keyboard: false});
         modalRef.componentInstance.operation = _.cloneDeep(operation);
         modalRef.result.then((result) => {
             this.activeModal.dismiss();
             this.renderEvents();
         }).catch(error => {
-            this.errorService.showError('Manage event error', error);
+            this.errorService.showError(environment.messages.errors.EDIT_OPERATION_COMPONENT, error);
         });
     }
 
@@ -69,7 +69,7 @@ export class OperationsCalendarComponent implements OnInit {
             .subscribe((data: Operation[]) => {
                 this.events = this.operationCalendarEventConverter.convertArray(data);
             }, error => {
-                this.errorService.showError('Render events error', error);
+                this.errorService.showError(environment.messages.errors.GET_ALL__OPERATIONS_COMPONENT, error);
             });
     }
 

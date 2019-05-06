@@ -68,5 +68,19 @@ export const environment = {
     formats: {
         PHONE_NUMBER_FORMAT: '(^\\+375(25|29|44|33)\\d{7}$)|(^80(25|29|44|33)\\d{7}$)',
         DATE_FORMAT: 'YYYY-MM-DD'
+    },
+    messages: {
+        errors: {
+            GET_ALL__OPERATION_TYPES_COMPONENT: 'Ошибка при загрузке данных для компонента. Тип: Виды услуг.',
+            GET_ALL__OPERATIONS_COMPONENT: 'Ошибка при загрузке данных для компонента. Тип: Запись.',
+            GET_ALL_CLIENTS_COMPONENT: 'Ошибка при загрузке данных для компонента. Тип: Клиент.',
+            DATE_TIME_RANGE_VALIDATION: 'Ошибка во время валидации временного периода.',
+            CREATE_CLIENT_COMPONENT: 'Ошибка при создании клиента в компоненте.',
+            GET_OPERATION_COMPONENT: 'Ошибка при открытии записи в компоненте.',
+            EDIT_OPERATION_COMPONENT: 'Ошибка при создании/редактировании записи в компоненте.',
+            DATABASE_FIND_ERROR: 'Ошибка в базе при чтении данных.',
+            DATABASE_EDIT_ERROR: 'Ошибка в базе при редактировании данных.',
+            DATABASE_SAVE_ERROR: 'Ошибка в базе при сохранении данных.'
+        }
     }
 };

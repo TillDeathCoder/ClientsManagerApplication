@@ -3,6 +3,7 @@ import {NGXLogger} from 'ngx-logger';
 import {ErrorService} from './error.service';
 import {Injectable} from '@angular/core';
 import {ClientsManagerEntity} from '../entity/clients.manager.entity';
+import {environment} from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +22,7 @@ export class CRUDService {
                 this.logger.debug('Size: ' + result.length);
                 return result;
             }).catch(error => {
-                this.errorService.showError('Database client error', error);
+                this.errorService.showError(environment.messages.errors.DATABASE_FIND_ERROR, error);
                 return [];
             });
     }
@@ -33,7 +34,7 @@ export class CRUDService {
                 this.logger.debug('Size: ' + result.length);
                 return result;
             }).catch(error => {
-                this.errorService.showError('Database client error', error);
+                this.errorService.showError(environment.messages.errors.DATABASE_FIND_ERROR, error);
                 return [];
             });
     }
@@ -45,7 +46,7 @@ export class CRUDService {
                 this.logger.debug('Success.');
                 return result;
             }).catch(error => {
-                this.errorService.showError('Database client error', error);
+                this.errorService.showError(environment.messages.errors.DATABASE_EDIT_ERROR, error);
                 return {};
             });
     }
@@ -57,7 +58,7 @@ export class CRUDService {
                 this.logger.debug('Success.');
                 return result;
             }).catch(error => {
-                this.errorService.showError('Database client error', error);
+                this.errorService.showError(environment.messages.errors.DATABASE_SAVE_ERROR, error);
                 return {};
             });
     }

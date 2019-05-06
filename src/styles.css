@@ -10,6 +10,20 @@
   border-radius: 5px;
 }
 
+.fc-day.ui-widget-content:hover {
+  background-color: #e5d6a5;
+  cursor: pointer;
+}
+
+td.fc-day-top:hover {
+  background-color: #e5d6a5;
+  cursor: pointer;
+}
+
+.fc-day-grid-event.fc-h-event.fc-event.fc-start.fc-end {
+  cursor: pointer;
+}
+
 .time-picker {
   margin-left: 15px;
 }

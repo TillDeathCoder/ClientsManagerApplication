@@ -14,6 +14,7 @@ import {from} from 'rxjs/internal/observable/from';
 import {ClientEditComponent} from '../client-edit/client-edit.component';
 import {ErrorService} from '../service/error.service';
 import {CRUDService} from '../service/crud.service';
+import {environment} from '../../environments/environment';
 
 @Component({
     selector: 'rp-operation-edit',
@@ -51,13 +52,13 @@ export class OperationEditComponent implements OnInit {
         from(this.crudService.getAll(OperationType)).subscribe(types => {
             this.operationTypes = types;
         }, error => {
-            this.errorService.showError('Error get all types', error);
+            this.errorService.showError(environment.messages.errors.GET_ALL__OPERATION_TYPES_COMPONENT, error);
         });
 
         from(this.crudService.getAll(Client)).subscribe(clients => {
             this.clients = clients;
         }, error => {
-            this.errorService.showError('Error get all clients', error);
+            this.errorService.showError(environment.messages.errors.GET_ALL_CLIENTS_COMPONENT, error);
         });
 
         this.operationTypeControl = new FormControl(this.operation.operationType, [(control: FormControl) => {
@@ -138,7 +139,7 @@ export class OperationEditComponent implements OnInit {
             return from(this.operationValidator.validateDateTimeRange(this.operation).then(result => {
                 this.dateTimeStatus = result === null;
             }).catch(error => {
-                this.errorService.showError('Date time range validation error', error);
+                this.errorService.showError(environment.messages.errors.DATE_TIME_RANGE_VALIDATION, error);
             }));
         };
     }
@@ -160,7 +161,7 @@ export class OperationEditComponent implements OnInit {
     }
 
     addClient() {
-        const modalRef = this.modalService.open(ClientEditComponent);
+        const modalRef = this.modalService.open(ClientEditComponent, {backdrop: 'static', keyboard: false});
         modalRef.componentInstance.client = Client.getClientForCreate();
         modalRef.result.then((result) => {
             if (result && result.isNew) {
@@ -168,7 +169,7 @@ export class OperationEditComponent implements OnInit {
                 this.clientControl.setValue(result.client);
             }
         }).catch(error => {
-            this.errorService.showError('Create client error', error);
+            this.errorService.showError(environment.messages.errors.CREATE_CLIENT_COMPONENT, error);
         });
     }
 

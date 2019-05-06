@@ -20,7 +20,7 @@ export class ErrorDetailsComponent implements OnInit {
     }
 
     closeErrorMessage() {
-        this.activeModal.close('Modal Closed');
+        this.activeModal.dismiss();
     }
 
 }

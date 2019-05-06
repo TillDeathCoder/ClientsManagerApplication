@@ -17,7 +17,7 @@ export class ErrorService {
 
     showError(message: String, reason) {
         this.logger.error(reason);
-        const modalRef = this.modalService.open(ErrorDetailsComponent);
+        const modalRef = this.modalService.open(ErrorDetailsComponent, {backdrop: 'static', keyboard: false});
         modalRef.componentInstance.message = message;
         modalRef.result.then((result) => {
             this.activeModal.close(result);
