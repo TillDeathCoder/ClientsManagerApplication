@@ -33,36 +33,9 @@ export class OperationsCalendarComponent implements OnInit {
     }
 
     ngOnInit() {
-        from(this.crudService.getAllWithJoin(Operation, {relations: ['client', 'operationType']}))
-            .subscribe((data: Operation[]) => {
-                this.calendarOptions = {
-                    header: {
-                        left: 'createEventButton today prev,next',
-                        center: 'title',
-                        right: 'month,agendaWeek,agendaDay'
-                    },
-                    themeSystem: 'jquery-ui',
-                    themeButtonIcons: true,
-                    monthNames: environment.calendar.locale.monthNames,
-                    monthNamesShort: environment.calendar.locale.monthNamesShort,
-                    dayNames: environment.calendar.locale.dayNames,
-                    dayNamesShort: environment.calendar.locale.dayNamesShort,
-                    allDayText: environment.calendar.locale.allDayText,
-                    buttonText: environment.calendar.locale.buttonText,
-                    locale: environment.calendar.locale.locale,
-                    editable: true,
-                    eventLimit: false,
-                    events: this.operationCalendarEventConverter.convertArray(data),
-                    customButtons: {
-                        createEventButton: {
-                            text: 'Добавить запись',
-                            click(element: JQuery): void {
-                            }
-                        }
-                    },
-                    timeFormat: 'HH:mm'
-                };
-            });
+        // @ts-ignore
+        this.calendarOptions = environment.calendar.configuration;
+        this.renderEvents();
     }
 
     eventClick(model) {
@@ -94,8 +67,10 @@ export class OperationsCalendarComponent implements OnInit {
     renderEvents() {
         from(this.crudService.getAllWithJoin(Operation, {relations: ['client', 'operationType']}))
             .subscribe((data: Operation[]) => {
-            this.events = this.operationCalendarEventConverter.convertArray(data);
-        });
+                this.events = this.operationCalendarEventConverter.convertArray(data);
+            }, error => {
+                this.errorService.showError('Render events error', error);
+            });
     }
 
     createEvent(event) {

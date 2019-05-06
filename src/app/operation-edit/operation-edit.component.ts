@@ -6,7 +6,7 @@ import {OperationType} from '../entity/operation-type';
 import {ClientsManagerDateFormatter} from '../utils/formatter/clients-manager-date-formatter';
 import {ClientsManagerDatepickerLocaleFormatter} from '../utils/formatter/clients-manager-datepicker-locale-formatter';
 import {ClientsManagerTimeFormatter} from '../utils/formatter/clients-manager-time-formatter';
-import {FormControl} from '@angular/forms';
+import {AsyncValidatorFn, FormControl} from '@angular/forms';
 import {OperationValidator} from '../utils/validator/operation-validator';
 import {isNumber} from 'util';
 import {Observable} from 'rxjs';
@@ -50,10 +50,14 @@ export class OperationEditComponent implements OnInit {
     ngOnInit() {
         from(this.crudService.getAll(OperationType)).subscribe(types => {
             this.operationTypes = types;
+        }, error => {
+            this.errorService.showError('Error get all types', error);
         });
 
         from(this.crudService.getAll(Client)).subscribe(clients => {
             this.clients = clients;
+        }, error => {
+            this.errorService.showError('Error get all clients', error);
         });
 
         this.operationTypeControl = new FormControl(this.operation.operationType, [(control: FormControl) => {
@@ -84,11 +88,7 @@ export class OperationEditComponent implements OnInit {
                     invalidRange: true
                 };
             }],
-            [(formControl: FormControl): Observable<any> => {
-                return from(this.operationValidator.validateDateTimeRange(this.operation).then(result => {
-                    this.dateTimeStatus = result === null;
-                }));
-            }]);
+            [this.dateTimeValidation()]);
 
         this.timeFinishControl = new FormControl(this.timeFormatter.formatTime(this.operation.finishTime), [(control: FormControl) => {
                 const finishValue = control.value;
@@ -107,11 +107,7 @@ export class OperationEditComponent implements OnInit {
                     invalidRange: true
                 };
             }],
-            [(formControl: FormControl): Observable<any> => {
-                return from(this.operationValidator.validateDateTimeRange(this.operation).then(result => {
-                    this.dateTimeStatus = result === null;
-                }));
-            }]);
+            [this.dateTimeValidation()]);
 
         this.priceControl = new FormControl(this.operation.price, (control: FormControl) => {
             const value = control.value;
@@ -135,6 +131,16 @@ export class OperationEditComponent implements OnInit {
                 invalidFormat: true
             };
         });
+    }
+
+    dateTimeValidation(): AsyncValidatorFn {
+        return (formControl: FormControl): Observable<any> => {
+            return from(this.operationValidator.validateDateTimeRange(this.operation).then(result => {
+                this.dateTimeStatus = result === null;
+            }).catch(error => {
+                this.errorService.showError('Date time range validation error', error);
+            }));
+        };
     }
 
     async save() {

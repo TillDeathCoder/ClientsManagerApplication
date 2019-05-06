@@ -8,6 +8,11 @@ export const environment = {
     clients: {
         ACTIVE_STATUS: 'ACTIVE'
     },
+    operationTypes: {
+        SIMPLE_EYELASH_EXTENSION_TYPE_ID: 1,
+        EYELASH_REMOVAL_TYPE_ID: 2,
+        COMBO_TYPE_ID: 3
+    },
     operations: {
         DEFAULT_START: '10:00',
         DEFAULT_FINISH: '12:00',
@@ -23,7 +28,14 @@ export const environment = {
             COMBO_TYPE_COLOR: '#8298ff',
             DEFAULT_COLOR: '#ff62ee'
         },
-        locale: {
+        configuration: {
+            header: {
+                left: 'createEventButton today prev,next',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            themeSystem: 'jquery-ui',
+            themeButtonIcons: true,
             monthNames:
                 ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
             monthNamesShort:
@@ -39,13 +51,19 @@ export const environment = {
                 week: 'Неделя',
                 day: 'День'
             },
-            locale: 'ru'
+            locale: 'ru',
+            editable: true,
+            eventLimit: false,
+            events: [],
+            customButtons: {
+                createEventButton: {
+                    text: 'Добавить запись',
+                    click(element: JQuery): void {
+                    }
+                }
+            },
+            timeFormat: 'HH:mm'
         }
-    },
-    operationTypes: {
-        SIMPLE_EYELASH_EXTENSION_TYPE_ID: 1,
-        EYELASH_REMOVAL_TYPE_ID: 2,
-        COMBO_TYPE_ID: 3
     },
     formats: {
         PHONE_NUMBER_FORMAT: '(^\\+375(25|29|44|33)\\d{7}$)|(^80(25|29|44|33)\\d{7}$)',
