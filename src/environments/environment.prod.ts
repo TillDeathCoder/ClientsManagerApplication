@@ -2,7 +2,7 @@ export const environment = {
     production: true,
     databaseConfiguration: {
         type: 'sqlite',
-        database: 'c://clients_manager_database',
+        databaseName: 'clients_manager_database.db',
         logging: false,
     },
     clients: {
