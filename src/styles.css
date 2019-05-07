@@ -37,3 +37,12 @@ td.fc-day-top:hover {
 .price-length {
   width: 140px
 }
+
+.page-link {
+  color: black;
+}
+
+.page-item.active .page-link {
+  background: darkgrey;
+  border-color: darkgrey;
+}

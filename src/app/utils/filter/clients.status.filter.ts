@@ -3,7 +3,8 @@ import {Client} from '../../entity/client';
 import {environment} from '../../../environments/environment';
 
 @Pipe({
-    name: 'statusFilter'
+    name: 'statusFilter',
+    pure: false
 })
 
 export class ClientsStatusFilter implements PipeTransform {

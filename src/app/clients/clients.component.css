@@ -2,11 +2,6 @@
     margin-bottom: 20px;
 }
 
-.pagination-wrapper {
-    position: fixed;
-    bottom: 5%;
-}
-
 .search-input {
-    width: 400px;
+    width: 250px;
 }

@@ -1,21 +1,39 @@
 <div>
-    <div class="input-group mb-3 search-input form-inline">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item mx-sm-2">
+                    <div class="input-group mb-3 search-input form-inline">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Введите имя..."
+                               [(ngModel)]="searchName">
+                    </div>
+                </li>
+                <li class="nav-item mx-sm-2">
+                    <button type="button" class="btn btn-light" (click)="addClient()">
+                        Добавить клиента <i class="fas fa-user-plus"></i>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <ngb-pagination
+                                    [(page)]="page"
+                                    [pageSize]="pageSize"
+                                    [collectionSize]="clients.length"></ngb-pagination>
+                </li>
+            </ul>
         </div>
-        <input type="text" class="form-control mr-sm-2" placeholder="Введите имя..."
-               [(ngModel)]="searchName">
-        <button type="button" class="btn btn-light" (click)="addClient()">Добавить клиента <i
-                class="fas fa-user-plus"></i></button>
-    </div>
+    </nav>
     <div class="card-deck">
         <div *ngFor="
         let client of (clients
         | nameFilter: searchName
         | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize) as filteredClients">
-            <div class="card card-wrapper" [ngClass]="{'border-danger': !isActive(client)}">
+            <div class="card card-wrapper" [ngClass]="{'border-warning text-danger': !isActive(client)}">
                 <div class="card-body">
-                    <h5 class="card-title"><i class="fas fa-user-tie"></i> {{client.firstName}} {{client.lastName}}
+                    <h5 class="card-title"><i
+                            class="fas fa-user-tie"></i> {{client.firstName}} {{client.lastName}}
                     </h5>
                 </div>
                 <ul class="list-group list-group-flush">
@@ -32,18 +50,16 @@
                 </ul>
                 <div class="card-body">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-warning" (click)="editClient(client)">Редактировать <i class="fas fa-edit"></i></button>
-                        <button type="button" class="btn btn-danger" (click)="deleteClient(client)" *ngIf="isActive(client)">Удалить <i class="fas fa-trash"></i></button>
-                        <button type="button" class="btn btn-success" (click)="restoreClient(client)" *ngIf="!isActive(client)">Восстановить <i class="fas fa-trash-restore"></i></button>
+                        <button type="button" class="btn btn-warning" (click)="editClient(client)">Редактировать
+                            <i class="fas fa-edit"></i></button>
+                        <button type="button" class="btn btn-danger" (click)="deleteClient(client)"
+                                *ngIf="isActive(client)">Удалить <i class="fas fa-trash"></i></button>
+                        <button type="button" class="btn btn-success" (click)="restoreClient(client)"
+                                *ngIf="!isActive(client)">Восстановить <i class="fas fa-trash-restore"></i>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="pagination-wrapper">
-        <ngb-pagination class="d-flex justify-content-center"
-                        [(page)]="page"
-                        [pageSize]="pageSize"
-                        [collectionSize]="clients.length"></ngb-pagination>
     </div>
 </div>

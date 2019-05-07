@@ -18,7 +18,7 @@
       <div class="form-group">
         <label for="clientsSelect"><i class="fas fa-user-edit"></i> Клиент:</label>
         <select class="form-control mb-2" id="clientsSelect" [ngClass]="{'border-danger': !clientStatus}" [formControl]="clientControl" [compareWith]="compare">
-          <option *ngFor="let client of clients | statusFilter: '' " [ngValue]="client">
+          <option *ngFor="let client of clients | statusFilter: ''" [ngValue]="client">
             {{client.firstName}} {{client.lastName}}
           </option>
         </select>
