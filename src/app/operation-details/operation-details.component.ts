@@ -3,6 +3,9 @@ import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Operation} from '../entity/operation';
 import {environment} from '../../environments/environment';
 import {CRUDService} from '../service/crud.service';
+import {OperationCloseComponent} from '../operation-close/operation-close.component';
+import {ErrorService} from '../service/error.service';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'rp-operation-details',
@@ -18,22 +21,26 @@ export class OperationDetailsComponent implements OnInit {
 
     constructor(public activeModal: NgbActiveModal,
                 private modalService: NgbModal,
-                private crudService: CRUDService) {
+                private crudService: CRUDService,
+                private errorService: ErrorService) {
     }
 
     ngOnInit() {
     }
 
     async closeOperation() {
-        await this.changeStatus(environment.operations.CLOSED_STATUS);
+        const modalRef = this.modalService.open(OperationCloseComponent, {backdrop: 'static', keyboard: false});
+        modalRef.componentInstance.operation = _.cloneDeep(this.operation);
+        modalRef.result.then((result) => {
+            this.activeModal.close(result);
+        }).catch(error => {
+            console.log(error);
+            this.errorService.showError(environment.messages.errors.EDIT_OPERATION_COMPONENT, error);
+        });
     }
 
     async cancelOperation() {
-        await this.changeStatus(environment.operations.CANCELLED_STATUS);
-    }
-
-    async changeStatus(status: string) {
-        this.operation.status = status;
+        this.operation.status = environment.operations.CANCELLED_STATUS;
         const result = await this.crudService.update(Operation, this.operation);
         this.activeModal.close(result);
     }

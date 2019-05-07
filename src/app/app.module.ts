@@ -15,8 +15,9 @@ import {OperationEditComponent} from './operation-edit/operation-edit.component'
 import {ClientEditComponent} from './client-edit/client-edit.component';
 import {ErrorDetailsComponent} from './error-details/error-details.component';
 import {ClientsNameFilter} from './utils/filter/clients.name.filter';
-import { StatisticComponent } from './statistic/statistic.component';
+import {StatisticComponent} from './statistic/statistic.component';
 import {ClientsStatusFilter} from './utils/filter/clients.status.filter';
+import {OperationCloseComponent} from './operation-close/operation-close.component';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import {ClientsStatusFilter} from './utils/filter/clients.status.filter';
         ErrorDetailsComponent,
         ClientsNameFilter,
         ClientsStatusFilter,
-        StatisticComponent
+        StatisticComponent,
+        OperationCloseComponent
     ],
     imports: [
         BrowserModule,
@@ -46,7 +48,7 @@ import {ClientsStatusFilter} from './utils/filter/clients.status.filter';
     ],
     providers: [NgbActiveModal],
     bootstrap: [AppComponent],
-    entryComponents: [OperationDetailsComponent, OperationEditComponent, ClientEditComponent, ErrorDetailsComponent]
+    entryComponents: [OperationDetailsComponent, OperationEditComponent, ClientEditComponent, ErrorDetailsComponent, OperationCloseComponent]
 })
 export class AppModule {
 }

@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <h4 class="modal-title">Нужно изменить стоимость?</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="card">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <label for="priceInput"><i class="fas fa-money-bill"></i> Стоимость:</label>
+      <input [ngClass]="{'border-danger': !priceStatus}" [formControl]="priceControl" min="0" type="number" class="form-control price-length" id="priceInput" value="{{operation.price}}">
+      <div class="small form-text text-danger" *ngIf="!priceStatus">
+        Неверное значение для стоимости: только цифры и значение должно быть больше нуля.
+      </div>
+    </li>
+  </ul>
+  <div class="card-body">
+    <div class="btn-group" role="group">
+      <button [disabled]="!priceStatus" type="button" class="btn btn-success" (click)="save()">
+        Ок <i class="fas fa-thumbs-up"></i>
+      </button>
+      <button type="button" class="btn btn-danger" (click)="activeModal.close()">Отмена <i class="fas fa-ban"></i></button>
+    </div>
+  </div>
+</div>

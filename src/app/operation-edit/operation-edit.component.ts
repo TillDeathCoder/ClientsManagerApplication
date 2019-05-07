@@ -27,15 +27,6 @@ import {environment} from '../../environments/environment';
 })
 export class OperationEditComponent implements OnInit {
 
-    constructor(public activeModal: NgbActiveModal,
-                private modalService: NgbModal,
-                private dateFormatter: NgbDateParserFormatter,
-                private timeFormatter: ClientsManagerTimeFormatter,
-                private operationValidator: OperationValidator,
-                private errorService: ErrorService,
-                private crudService: CRUDService) {
-    }
-
     @Input() operation: Operation;
     clients: Client[];
     operationTypes: OperationType[];
@@ -48,6 +39,15 @@ export class OperationEditComponent implements OnInit {
     dateTimeStatus = true;
     priceStatus = true;
     priceControl: FormControl;
+
+    constructor(public activeModal: NgbActiveModal,
+                private modalService: NgbModal,
+                private dateFormatter: NgbDateParserFormatter,
+                private timeFormatter: ClientsManagerTimeFormatter,
+                private operationValidator: OperationValidator,
+                private errorService: ErrorService,
+                private crudService: CRUDService) {
+    }
 
     ngOnInit() {
         from(this.crudService.getAll(OperationType)).subscribe(types => {
