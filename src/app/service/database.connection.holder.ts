@@ -16,12 +16,10 @@ export class DatabaseConnectionHolder {
     private readonly options: ConnectionOptions;
 
     constructor() {
-
         const appPath = remote.app.getAppPath();
         const dbPath = path.join(appPath, '/database/');
         const database = path.join(dbPath, environment.databaseConfiguration.databaseName);
 
-        console.log(database);
         // @ts-ignore
         this.options = {
             type: environment.databaseConfiguration.type,

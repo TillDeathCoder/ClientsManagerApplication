@@ -30,12 +30,13 @@
     "electron:linux": "npm run build:prod && npx electron-builder build --linux",
     "electron:windows": "npm run build:prod && npx electron-builder build --windows",
     "electron:mac": "npm run build:prod && npx electron-builder build --mac",
-    "start": "npm run postinstall:electron && npm-run-all -p ng:serve electron:serve",
+    "start": "npm run createDevDb && npm run postinstall:electron && npm-run-all -p ng:serve electron:serve",
     "ng:serve": "ng serve",
     "ng:serve:web": "npm run postinstall:web && npm run electron:tsc  && ng serve -o",
     "postinstall": "npm run postinstall:electron && npx electron-builder install-app-deps",
     "postinstall:web": "node postinstall-web",
-    "postinstall:electron": "node postinstall"
+    "postinstall:electron": "node postinstall",
+    "createDevDb": "node scripts/dev.db.js"
   },
   "private": true,
   "dependencies": {
