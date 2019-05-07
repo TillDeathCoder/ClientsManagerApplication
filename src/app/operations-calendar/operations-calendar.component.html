@@ -3,6 +3,7 @@
                    (eventClick)="eventClick($event.detail.event.fullData)"
                    [(eventsModel)]="events"
                    (dayClick)="createEvent($event.detail.date)"
+                   (eventRender)="renderEvent($event)"
                    (clickButton)="createEvent($event)">
   </ng-fullcalendar>
 </div>

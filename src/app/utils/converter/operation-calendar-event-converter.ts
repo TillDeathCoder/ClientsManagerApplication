@@ -13,10 +13,8 @@ export class OperationCalendarEventConverter {
         if (_.isArray(operations)) {
             const events = [];
             _.each(operations, operation => {
-                if (environment.operations.OPEN_STATUS === operation.status) {
-                    const event = this.convert(operation);
-                    events.push(event);
-                }
+                const event = this.convert(operation);
+                events.push(event);
             });
             return _.compact(events);
         }
@@ -31,7 +29,7 @@ export class OperationCalendarEventConverter {
             title: this.buildTitle(operation),
             start: this.buildDateTime(operation.date, operation.startTime),
             end: this.buildDateTime(operation.date, operation.finishTime),
-            color: this.findColor(operation.operationType),
+            color: this.findColor(operation),
             editable: false,
             fullData: operation
         };
@@ -49,14 +47,17 @@ export class OperationCalendarEventConverter {
         return `${date}T${time}`;
     }
 
-    private findColor(operationType: OperationType) {
-        switch (+operationType.id) {
-            case environment.operationTypes.SIMPLE_EYELASH_EXTENSION_TYPE_ID:
-                return environment.calendar.colors.SIMPLE_EYELASH_EXTENSION_TYPE_COLOR;
-            case environment.operationTypes.EYELASH_REMOVAL_TYPE_ID :
-                return environment.calendar.colors.EYELASH_REMOVAL_TYPE_COLOR;
-            case environment.operationTypes.COMBO_TYPE_ID:
-                return environment.calendar.colors.COMBO_TYPE_COLOR;
+    private findColor(operation: Operation) {
+        switch (operation.status) {
+            case environment.operations.CLOSED_STATUS:
+                return environment.calendar.colors.CLOSED_COLOR;
+            case environment.operations.OPEN_STATUS :
+                if (operation.client.status === environment.clients.BANNED_STATUS) {
+                    return environment.calendar.colors.CANCELLED_COLOR;
+                }
+                return environment.calendar.colors.OPEN_COLOR;
+            case environment.operations.CANCELLED_STATUS:
+                return environment.calendar.colors.CANCELLED_COLOR;
             default:
                 return environment.calendar.colors.DEFAULT_COLOR;
         }

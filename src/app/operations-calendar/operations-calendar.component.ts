@@ -82,4 +82,13 @@ export class OperationsCalendarComponent implements OnInit {
             this.openEditModal(Operation.getOperationForCreate(formattedDate));
         }
     }
+
+    renderEvent(event) {
+        console.log(event);
+        const title = event.detail.element.text();
+        console.log(title);
+        event.detail.element.text('');
+        event.detail.element.append('<i class="fas fa-ban"></i> ');
+        event.detail.element.append(title);
+    }
 }

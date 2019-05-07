@@ -9,11 +9,6 @@ export const environment = {
         ACTIVE_STATUS: 'ACTIVE',
         BANNED_STATUS: 'BANNED'
     },
-    operationTypes: {
-        SIMPLE_EYELASH_EXTENSION_TYPE_ID: 1,
-        EYELASH_REMOVAL_TYPE_ID: 2,
-        COMBO_TYPE_ID: 3
-    },
     operations: {
         DEFAULT_START: '10:00',
         DEFAULT_FINISH: '12:00',
@@ -24,9 +19,9 @@ export const environment = {
     },
     calendar: {
         colors: {
-            SIMPLE_EYELASH_EXTENSION_TYPE_COLOR: '#ffab82',
-            EYELASH_REMOVAL_TYPE_COLOR: '#84ff78',
-            COMBO_TYPE_COLOR: '#8298ff',
+            CLOSED_COLOR: '#ffab82',
+            OPEN_COLOR: '#84ff78',
+            CANCELLED_COLOR: '#8298ff',
             DEFAULT_COLOR: '#ff62ee'
         },
         configuration: {
