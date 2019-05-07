@@ -6,7 +6,8 @@ export const environment = {
         logging: false,
     },
     clients: {
-        ACTIVE_STATUS: 'ACTIVE'
+        ACTIVE_STATUS: 'ACTIVE',
+        BANNED_STATUS: 'BANNED'
     },
     operationTypes: {
         SIMPLE_EYELASH_EXTENSION_TYPE_ID: 1,

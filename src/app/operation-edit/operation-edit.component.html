@@ -18,11 +18,14 @@
       <div class="form-group">
         <label for="clientsSelect"><i class="fas fa-user-edit"></i> Клиент:</label>
         <select class="form-control mb-2" id="clientsSelect" [formControl]="clientControl" [compareWith]="compare">
-          <option *ngFor="let client of clients" [ngValue]="client">
+          <option *ngFor="let client of clients | statusFilter: '' " [ngValue]="client">
             {{client.firstName}} {{client.lastName}}
           </option>
         </select>
         <button class="btn btn-primary" (click)="addClient()">Добавить клиента</button>
+        <div class="small form-text text-danger">
+          <div *ngIf="!clientStatus">Выберите клиента. Нельзя создать запись без клиента.</div>
+        </div>
       </div>
     </li>
     <li class="list-group-item">
@@ -78,7 +81,7 @@
   </ul>
   <div class="card-body">
     <div class="btn-group" role="group">
-      <button [disabled]="!timeStatus || !dateTimeStatus || !priceStatus" type="button" class="btn btn-success" (click)="save()">
+      <button [disabled]="!timeStatus || !dateTimeStatus || !priceStatus || !clientStatus" type="button" class="btn btn-success" (click)="save()">
         Сохранить <i class="fas fa-thumbs-up"></i></button>
     </div>
   </div>

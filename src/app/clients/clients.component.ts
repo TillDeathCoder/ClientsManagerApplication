@@ -55,4 +55,19 @@ export class ClientsComponent implements OnInit {
         });
     }
 
+    deleteClient(client: Client) {
+        client.status = environment.clients.BANNED_STATUS;
+        this.crudService.update(Client, client);
+        this.renderClients();
+    }
+
+    restoreClient(client: Client) {
+        client.status = environment.clients.ACTIVE_STATUS;
+        this.crudService.update(Client, client);
+        this.renderClients();
+    }
+
+    isActive(client: Client) {
+        return client.status === environment.clients.ACTIVE_STATUS;
+    }
 }

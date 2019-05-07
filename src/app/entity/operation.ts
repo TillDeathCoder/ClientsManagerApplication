@@ -39,11 +39,7 @@ export class Operation extends ClientsManagerEntity {
         const operationType = new OperationType();
         operationType.id = 1;
 
-        const client = new Client();
-        client.id = 1;
-
         operation.operationType = operationType;
-        operation.client = client;
         operation.date = date;
         operation.startTime = environment.operations.DEFAULT_START;
         operation.finishTime = environment.operations.DEFAULT_FINISH;

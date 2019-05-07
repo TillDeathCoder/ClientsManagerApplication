@@ -13,7 +13,7 @@
         let client of (clients
         | nameFilter: searchName
         | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize) as filteredClients">
-            <div class="card card-wrapper">
+            <div class="card card-wrapper" [ngClass]="{'text-white bg-danger': !isActive(client)}">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-user-tie"></i> {{client.firstName}} {{client.lastName}}
                     </h5>
@@ -32,9 +32,9 @@
                 </ul>
                 <div class="card-body">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-warning" (click)="editClient(client)">Редактировать <i
-                                class="fas fa-edit"></i></button>
-                        <button type="button" class="btn btn-danger">Удалить <i class="fas fa-trash"></i></button>
+                        <button type="button" class="btn btn-warning" (click)="editClient(client)">Редактировать <i class="fas fa-edit"></i></button>
+                        <button type="button" class="btn btn-danger" (click)="deleteClient(client)" *ngIf="isActive(client)">Удалить <i class="fas fa-trash"></i></button>
+                        <button type="button" class="btn btn-success" (click)="restoreClient(client)" *ngIf="!isActive(client)">Восстановить <i class="fas fa-trash-restore"></i></button>
                     </div>
                 </div>
             </div>

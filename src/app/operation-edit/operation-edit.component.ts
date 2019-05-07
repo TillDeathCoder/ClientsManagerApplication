@@ -43,6 +43,7 @@ export class OperationEditComponent implements OnInit {
     clientControl: FormControl;
     timeStartControl: FormControl;
     timeFinishControl: FormControl;
+    clientStatus = true;
     timeStatus = true;
     dateTimeStatus = true;
     priceStatus = true;
@@ -67,8 +68,18 @@ export class OperationEditComponent implements OnInit {
         }]);
 
         this.clientControl = new FormControl(this.operation.client, [(control: FormControl) => {
-            this.operation.client = control.value;
-            return null;
+            const client = control.value;
+
+            if (client && client.firstName) {
+                this.operation.client = control.value;
+                this.clientStatus = true;
+                return null;
+            }
+
+            this.clientStatus = false;
+            return {
+                noClient: true
+            };
         }]);
 
         this.timeStartControl = new FormControl(this.timeFormatter.formatTime(this.operation.startTime), [(control: FormControl) => {
@@ -174,6 +185,9 @@ export class OperationEditComponent implements OnInit {
     }
 
     compare(first: any, second: any): boolean {
+        if (!first || !second) {
+            return false;
+        }
         return first.id === second.id;
     }
 }
