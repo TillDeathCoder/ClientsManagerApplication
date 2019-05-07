@@ -8,7 +8,9 @@
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
       <label for="firstName"><i class="fas fa-pen"></i> Имя:</label>
-      <input type="text" class="form-control" id="firstName" placeholder="Имя..." required [formControl]="firstNameControl">
+      <input type="text" class="form-control" id="firstName" placeholder="Имя..." required
+             [ngClass]="{'border-danger': !isNameValid}"
+             [formControl]="firstNameControl">
       <div class="small form-text text-danger" *ngIf="!isNameValid">
         Имя должно быть указано обязательно. Если у клиента нету имени, а только псевдоним, то запишите псевдоним в имя.
       </div>
@@ -23,7 +25,9 @@
     </li>
     <li class="list-group-item">
       <label for="phoneNumber"><i class="fas fa-phone"></i> Номер телефона:</label>
-      <input type="text" class="form-control" id="phoneNumber" placeholder="Номер..." [formControl]="phoneNumberControl">
+      <input type="text" class="form-control" id="phoneNumber" placeholder="Номер..."
+             [ngClass]="{'border-danger': !isPhoneValid}"
+             [formControl]="phoneNumberControl">
       <div class="small form-text text-danger" *ngIf="!isPhoneValid">
         Введеный номер не соответсует формату. Пример: +375XX-XXX-XX-XX или 80XX-XXX-XX-XX
       </div>

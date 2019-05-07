@@ -17,7 +17,7 @@
     <li class="list-group-item">
       <div class="form-group">
         <label for="clientsSelect"><i class="fas fa-user-edit"></i> Клиент:</label>
-        <select class="form-control mb-2" id="clientsSelect" [formControl]="clientControl" [compareWith]="compare">
+        <select class="form-control mb-2" id="clientsSelect" [ngClass]="{'border-danger': !clientStatus}" [formControl]="clientControl" [compareWith]="compare">
           <option *ngFor="let client of clients | statusFilter: '' " [ngValue]="client">
             {{client.firstName}} {{client.lastName}}
           </option>
@@ -34,10 +34,13 @@
         <div class="form-group">
           <div class="input-group">
             <input id="datePicker" class="form-control" placeholder="{{operation.date}}" name="dp" ngbDatepicker #d="ngbDatepicker"
+                   [ngClass]="{'border-danger': !dateTimeStatus || !timeStatus}"
                    [displayMonths]="2"
                    (dateSelect)="setDate($event)">
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+              <button class="btn btn-outline-secondary calendar" type="button"
+                      [ngClass]="{'border-danger': !dateTimeStatus || !timeStatus}"
+                      (click)="d.toggle()">
                 <i class="fas fa-arrow-down"></i>
               </button>
             </div>
@@ -67,7 +70,7 @@
     </li>
     <li class="list-group-item">
       <label for="priceInput"><i class="fas fa-money-bill"></i> Стоимость:</label>
-      <input [formControl]="priceControl" min="0" type="number" class="form-control price-length" id="priceInput" value="{{operation.price}}">
+      <input [ngClass]="{'border-danger': !priceStatus}" [formControl]="priceControl" min="0" type="number" class="form-control price-length" id="priceInput" value="{{operation.price}}">
       <div class="small form-text text-danger" *ngIf="!priceStatus">
         Неверное значение для стоимости: только цифры и значение должно быть больше нуля.
       </div>
