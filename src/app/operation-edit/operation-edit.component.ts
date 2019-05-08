@@ -39,6 +39,11 @@ export class OperationEditComponent implements OnInit {
     dateTimeStatus = true;
     priceStatus = true;
     priceControl: FormControl;
+    statusControl: FormControl;
+
+    OPEN_STATUS = environment.operations.OPEN_STATUS;
+    CLOSED_STATUS = environment.operations.CLOSED_STATUS;
+    CANCELLED_STATUS = environment.operations.CANCELLED_STATUS;
 
     constructor(public activeModal: NgbActiveModal,
                 private modalService: NgbModal,
@@ -143,6 +148,11 @@ export class OperationEditComponent implements OnInit {
                 invalidFormat: true
             };
         });
+
+        this.statusControl = new FormControl(this.operation.status, [(control: FormControl) => {
+            this.operation.status = control.value;
+            return null;
+        }], [this.dateTimeValidation()]);
     }
 
     dateTimeValidation(): AsyncValidatorFn {

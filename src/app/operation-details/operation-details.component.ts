@@ -45,6 +45,11 @@ export class OperationDetailsComponent implements OnInit {
         this.activeModal.close(result);
     }
 
+    isOperationActive() {
+        return this.operation.status === environment.operations.OPEN_STATUS
+            && this.operation.client.status === environment.clients.ACTIVE_STATUS;
+    }
+
     openEditModal() {
         this.activeModal.close({isEdit: true});
     }

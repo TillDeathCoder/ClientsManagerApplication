@@ -56,6 +56,8 @@ export class OperationValidator {
     private checkEqualsCriteria(current, operation) {
         return moment(current.date).isSame(moment(operation.date))
             && current.status === environment.operations.OPEN_STATUS
+            && current.client.status !== environment.clients.BANNED_STATUS
+            && operation.status === environment.operations.OPEN_STATUS
             && current.id !== operation.id;
     }
 

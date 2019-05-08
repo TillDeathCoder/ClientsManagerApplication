@@ -29,6 +29,16 @@
       </div>
     </li>
     <li class="list-group-item">
+      <div class="form-group">
+        <label for="statusSelect"><i class="fas fa-stream"></i> Статус записи:</label>
+        <select class="custom-select" id="statusSelect" [formControl]="statusControl">
+          <option [ngValue]="OPEN_STATUS">Активна</option>
+          <option [ngValue]="CLOSED_STATUS">Закрыта</option>
+          <option [ngValue]="CANCELLED_STATUS">Отмененна</option>
+        </select>
+      </div>
+    </li>
+    <li class="list-group-item">
       <label for="datePicker"><i class="fas fa-clock"></i> Дата:</label>
       <form class="form-inline">
         <div class="form-group">

@@ -31,9 +31,20 @@
   </ul>
   <div class="card-body">
     <div class="btn-group" role="group">
-      <button type="button" class="btn btn-success" (click)="closeOperation()">Закрыть <i class="fas fa-thumbs-up"></i></button>
-      <button type="button" class="btn btn-danger" (click)="cancelOperation()">Отменить <i class="fas fa-ban"></i></button>
-      <button type="button" class="btn btn-warning" (click)="openEditModal()">Редактировать <i class="fas fa-edit"></i></button>
+      <button type="button" class="btn btn-success"
+              *ngIf="isOperationActive()"
+              (click)="closeOperation()">
+        Закрыть <i class="fas fa-thumbs-up"></i>
+      </button>
+      <button type="button" class="btn btn-danger"
+              *ngIf="isOperationActive()"
+              (click)="cancelOperation()">
+        Отменить <i class="fas fa-ban"></i>
+      </button>
+      <button type="button" class="btn btn-warning"
+              (click)="openEditModal()">
+        Редактировать <i class="fas fa-edit"></i>
+      </button>
     </div>
   </div>
 </div>

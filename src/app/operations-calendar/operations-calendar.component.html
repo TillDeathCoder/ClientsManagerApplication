@@ -10,9 +10,9 @@
         <li class="nav-item mx-sm-2">
           <div class="input-group">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect01">Отфильтровать по статусу:</label>
+              <label class="input-group-text" for="statusSelect">Отфильтровать по статусу:</label>
             </div>
-            <select class="custom-select" id="inputGroupSelect01" [formControl]="statusControl">
+            <select class="custom-select" id="statusSelect" [formControl]="statusControl">
               <option [ngValue]="ALL_STATUS">Все</option>
               <option [ngValue]="OPEN_STATUS">Активные</option>
               <option [ngValue]="CLOSED_STATUS">Закрытые</option>

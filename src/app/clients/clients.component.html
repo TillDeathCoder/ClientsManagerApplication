@@ -30,60 +30,72 @@
         | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize) as filteredClients">
             <div class="card card-wrapper">
                 <div class="card-body">
-                    <h5 class="card-title"><i
-                            class="fas fa-user-tie"></i> {{client.firstName}} {{client.lastName}}
+                    <h5 class="card-title" [ngClass]="{'text-secondary': !isActive(client)}">
+                        <i class="fas fa-user-tie"></i> {{client.firstName}} {{client.lastName}}
                     </h5>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item" *ngIf="client.nickname">
-                        <i class="fas fa-external-link-square-alt"></i> {{client.nickname}}
+                        <i class="fas fa-pen"></i> {{client.nickname}}
                     </li>
                     <li class="list-group-item" *ngIf="client.phoneNumber">
-                        <i class="fas fa-external-link-square-alt"></i> {{client.phoneNumber}}
+                        <i class="fas fa-phone"></i> {{client.phoneNumber}}
                     </li>
                     <li class="list-group-item" *ngIf="client.internetLink">
-                        <i class="fas fa-external-link-square-alt"></i> <a
-                            href="{{client.internetLink}}"> {{client.internetLink}}</a>
+                        <i class="fas fa-external-link-square-alt"></i>
+                        <a href="{{client.internetLink}}"> {{client.internetLink}}</a>
                     </li>
                 </ul>
                 <div class="card-body" *ngIf="client.operations.length">
-                    <a data-toggle="collapse" href="#{{'collapseOperations' + client.id}}" role="button" aria-expanded="false" class="operations-button">
+                    <a data-toggle="collapse" href="#{{'collapseOperations' + client.id}}" role="button"
+                       aria-expanded="false" class="operations-button">
                         <i class="fas fa-calendar-alt"></i> Записи <i class="fas fa-caret-down"></i>
                     </a>
                     <div class="collapse" id="{{'collapseOperations' + client.id}}">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item" *ngIf="getOpenOperations(client).length">
-                            <i class="fas fa-spinner"></i> Открытые:
-                            <a (click)="showOperation(operation.id)" class="badge badge-primary mx-sm-2"
-                               *ngFor="let operation of getOpenOperations(client)">
-                                {{operation.date}}
-                            </a>
-                        </li>
-                        <li class="list-group-item" *ngIf="getClosedOperations(client).length">
-                            <i class="far fa-check-circle"></i> Закрыте:
-                            <a (click)="showOperation(operation.id)" class="badge badge-info mx-sm-2"
-                               *ngFor="let operation of getClosedOperations(client)">
-                                {{operation.date}}
-                            </a>
-                        </li>
-                        <li class="list-group-item" *ngIf="getCancelledOperations(client).length">
-                            <i class="fas fa-ban"></i> Отмененные:
-                            <a (click)="showOperation(operation.id)" class="badge badge-danger mx-sm-2"
-                               *ngFor="let operation of getCancelledOperations(client)">
-                                {{operation.date}}
-                            </a>
-                        </li>
-                    </ul>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" *ngIf="getOpenOperations(client).length">
+                                <i class="fas fa-spinner"></i> Открытые:
+                                <div class="list-group">
+                                    <a class="badge badge-primary my-sm-1"
+                                       (click)="showOperation(operation.id)"
+                                       *ngFor="let operation of getOpenOperations(client)">
+                                        {{operation.date}}
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="list-group-item" *ngIf="getClosedOperations(client).length">
+                                <i class="far fa-check-circle"></i> Закрытые:
+                                <div class="list-group">
+                                    <a class="badge badge-info my-sm-1"
+                                       (click)="showOperation(operation.id)"
+                                       *ngFor="let operation of getClosedOperations(client)">
+                                        {{operation.date}}
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="list-group-item" *ngIf="getCancelledOperations(client).length">
+                                <i class="fas fa-ban"></i> Отмененные:
+                                <div class="list-group">
+                                    <a class="badge badge-danger my-sm-1"
+                                       (click)="showOperation(operation.id)"
+                                       *ngFor="let operation of getCancelledOperations(client)">
+                                        {{operation.date}}
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <div class="card-footer">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-warning" (click)="editClient(client)">Редактировать
-                            <i class="fas fa-edit"></i></button>
+                        <button type="button" class="btn btn-warning" (click)="editClient(client)">
+                            Редактировать <i class="fas fa-edit"></i></button>
                         <button type="button" class="btn btn-danger" (click)="deleteClient(client)"
-                                *ngIf="isActive(client)">Удалить <i class="fas fa-trash"></i></button>
+                                *ngIf="isActive(client)">
+                            Удалить <i class="fas fa-trash"></i></button>
                         <button type="button" class="btn btn-success" (click)="restoreClient(client)"
-                                *ngIf="!isActive(client)">Восстановить <i class="fas fa-trash-restore"></i>
+                                *ngIf="!isActive(client)">
+                            Восстановить <i class="fas fa-trash-restore"></i>
                         </button>
                     </div>
                 </div>

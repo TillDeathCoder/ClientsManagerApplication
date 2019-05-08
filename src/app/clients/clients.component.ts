@@ -105,11 +105,12 @@ export class ClientsComponent implements OnInit {
         const modalRef = this.modalService.open(OperationDetailsComponent, {backdrop: 'static', keyboard: false});
         modalRef.componentInstance.operation = operation;
         modalRef.result.then((result) => {
-            if (result && result.isEdit) {
-                this.activeModal.close(result);
-                this.openEditModal(operation);
-            } else {
+            if (result) {
+                if (result.isEdit) {
+                    this.openEditModal(operation);
+                }
                 this.renderClients();
+                this.activeModal.close(result);
             }
         }).catch(error => {
             this.errorService.showError(environment.messages.errors.GET_OPERATION_COMPONENT, error);
