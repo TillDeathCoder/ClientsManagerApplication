@@ -15,7 +15,8 @@ export const environment = {
         DEFAULT_PRICE: 25,
         OPEN_STATUS: 'OPEN',
         CLOSED_STATUS: 'CLOSED',
-        CANCELLED_STATUS: 'CANCELED'
+        CANCELLED_STATUS: 'CANCELED',
+        ALL_STATUS: 'ALL'
     },
     calendar: {
         colors: {
@@ -24,9 +25,14 @@ export const environment = {
             CANCELLED_COLOR: '#ffdcac',
             DEFAULT_COLOR: '#e4c5ff'
         },
+        titleLogos: {
+            CLOSED_LOGO: '<i class="far fa-check-circle"></i> ',
+            OPEN_LOGO: '<i class="fas fa-spinner"></i> ',
+            CANCELLED_LOGO: '<i class="fas fa-ban"></i> '
+        },
         configuration: {
             header: {
-                left: 'createEventButton today prev,next',
+                left: 'today prev,next',
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
@@ -51,13 +57,6 @@ export const environment = {
             editable: true,
             eventLimit: false,
             events: [],
-            customButtons: {
-                createEventButton: {
-                    text: 'Добавить запись',
-                    click(element: JQuery): void {
-                    }
-                }
-            },
             timeFormat: 'HH:mm'
         }
     },

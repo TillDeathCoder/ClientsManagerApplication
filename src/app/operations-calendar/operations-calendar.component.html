@@ -1,9 +1,34 @@
+<div>
+  <nav class="navbar navbar-expand-lg bg-dark search-bar">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item mx-sm-2">
+          <button type="button" class="btn btn-light" (click)="createEvent('')">
+            Добавить запись <i class="fas fa-plus-square"></i>
+          </button>
+        </li>
+        <li class="nav-item mx-sm-2">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">Отфильтровать по статусу:</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01" [formControl]="statusControl">
+              <option [ngValue]="ALL_STATUS">Все</option>
+              <option [ngValue]="OPEN_STATUS">Активные</option>
+              <option [ngValue]="CLOSED_STATUS">Закрытые</option>
+              <option [ngValue]="CANCELLED_STATUS">Отмененные</option>
+            </select>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
 <div *ngIf="calendarOptions">
   <ng-fullcalendar #ucCalendar [options]="calendarOptions"
                    (eventClick)="eventClick($event.detail.event.fullData)"
                    [(eventsModel)]="events"
                    (dayClick)="createEvent($event.detail.date)"
-                   (eventRender)="renderEvent($event)"
-                   (clickButton)="createEvent($event)">
+                   (eventRender)="renderEvent($event)">
   </ng-fullcalendar>
 </div>

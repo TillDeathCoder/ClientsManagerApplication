@@ -13,6 +13,7 @@ import {from} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {ErrorService} from '../service/error.service';
 import {CRUDService} from '../service/crud.service';
+import {FormControl} from '@angular/forms';
 
 @Component({
     selector: 'rp-operations-calendar',
@@ -24,6 +25,11 @@ export class OperationsCalendarComponent implements OnInit {
     @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
     calendarOptions: Options;
     events: any;
+    statusControl: FormControl;
+    ALL_STATUS = environment.operations.ALL_STATUS;
+    OPEN_STATUS = environment.operations.OPEN_STATUS;
+    CLOSED_STATUS = environment.operations.CLOSED_STATUS;
+    CANCELLED_STATUS = environment.operations.CANCELLED_STATUS;
 
     constructor(private crudService: CRUDService,
                 private modalService: NgbModal,
@@ -35,7 +41,11 @@ export class OperationsCalendarComponent implements OnInit {
     ngOnInit() {
         // @ts-ignore
         this.calendarOptions = environment.calendar.configuration;
-        this.renderEvents();
+
+        this.statusControl = new FormControl(environment.operations.OPEN_STATUS, [(control: FormControl) => {
+            this.renderEvents();
+            return null;
+        }]);
     }
 
     eventClick(model) {
@@ -67,26 +77,22 @@ export class OperationsCalendarComponent implements OnInit {
     renderEvents() {
         from(this.crudService.getAllWithJoin(Operation, {relations: ['client', 'operationType']}))
             .subscribe((data: Operation[]) => {
-                this.events = this.operationCalendarEventConverter.convertArray(data);
+                this.events = this.operationCalendarEventConverter.convertArray(data, this.statusControl.value);
             }, error => {
                 this.errorService.showError(environment.messages.errors.GET_ALL__OPERATIONS_COMPONENT, error);
             });
     }
 
     createEvent(event) {
-        if (isMoment(event) || (event.detail && event.detail.buttonType === 'createEventButton')) {
-            let formattedDate = moment(new Date()).format(environment.formats.DATE_FORMAT);
-            if (isMoment(event)) {
-                formattedDate = moment(event).format(environment.formats.DATE_FORMAT);
-            }
-            this.openEditModal(Operation.getOperationForCreate(formattedDate));
+        let formattedDate = moment(new Date()).format(environment.formats.DATE_FORMAT);
+        if (isMoment(event)) {
+            formattedDate = moment(event).format(environment.formats.DATE_FORMAT);
         }
+        this.openEditModal(Operation.getOperationForCreate(formattedDate));
     }
 
     renderEvent(event) {
-        console.log(event);
         const title = event.detail.element.text();
-        console.log(title);
         event.detail.element.text('');
         event.detail.element.append('<i class="fas fa-ban"></i> ');
         event.detail.element.append(title);

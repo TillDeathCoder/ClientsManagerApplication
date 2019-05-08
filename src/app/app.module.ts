@@ -48,7 +48,8 @@ import {OperationCloseComponent} from './operation-close/operation-close.compone
     ],
     providers: [NgbActiveModal],
     bootstrap: [AppComponent],
-    entryComponents: [OperationDetailsComponent, OperationEditComponent, ClientEditComponent, ErrorDetailsComponent, OperationCloseComponent]
+    entryComponents:
+        [OperationDetailsComponent, OperationEditComponent, ClientEditComponent, ErrorDetailsComponent, OperationCloseComponent]
 })
 export class AppModule {
 }

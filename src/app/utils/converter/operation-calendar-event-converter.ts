@@ -1,6 +1,5 @@
 import {Operation} from '../../entity/operation';
 import * as _ from 'lodash';
-import {OperationType} from '../../entity/operation-type';
 import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
 
@@ -9,12 +8,14 @@ import {environment} from '../../../environments/environment';
 })
 export class OperationCalendarEventConverter {
 
-    public convertArray(operations: Operation[]) {
+    public convertArray(operations: Operation[], status) {
         if (_.isArray(operations)) {
             const events = [];
             _.each(operations, operation => {
-                const event = this.convert(operation);
-                events.push(event);
+                if (operation.status === status || status === environment.operations.ALL_STATUS) {
+                    const event = this.convert(operation);
+                    events.push(event);
+                }
             });
             return _.compact(events);
         }
