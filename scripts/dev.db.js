@@ -6,11 +6,11 @@ const DB_PREFIX = '.db';
 const DEV_DB_PREFIX = '_dev.db';
 
 function createDevDB() {
-    console.log('Creating dev database...');
+    console.log('> Creating dev database...');
     const content = fs.readdirSync(DB_FOLDER_PATH);
 
     if (isDevDBExist(content)) {
-        console.log('Dev database already exist.');
+        console.log('> Dev database already exist.');
     } else {
         if (content && content.length > 0) {
             content.forEach(file => {
@@ -21,7 +21,7 @@ function createDevDB() {
                         if (error) {
                             console.error(error);
                         } else {
-                            console.log('Dev database was created.')
+                            console.log('> Dev database was created.')
                         }
                     });
                 }
