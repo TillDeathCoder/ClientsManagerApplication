@@ -92,9 +92,29 @@ export class OperationsCalendarComponent implements OnInit {
     }
 
     renderEvent(event) {
-        const title = event.detail.element.text();
-        event.detail.element.text('');
-        event.detail.element.append('<i class="fas fa-ban"></i> ');
-        event.detail.element.append(title);
+        const currentStatus = this.statusControl.value;
+        if (currentStatus === this.ALL_STATUS) {
+            const title = event.detail.element.text();
+            event.detail.element.text('');
+            event.detail.element.append(this.findLogo(event));
+            event.detail.element.append(title);
+        }
     }
+
+    findLogo(event) {
+        switch (event.detail.event.fullData.status) {
+            case this.OPEN_STATUS:
+                if (event.detail.event.fullData.client.status === environment.clients.BANNED_STATUS) {
+                    return environment.calendar.titleLogos.CANCELLED_LOGO;
+                }
+                return environment.calendar.titleLogos.OPEN_LOGO;
+            case this.CANCELLED_STATUS:
+                return environment.calendar.titleLogos.CANCELLED_LOGO;
+            case this.CLOSED_STATUS:
+                return environment.calendar.titleLogos.CLOSED_LOGO;
+            default:
+                return '';
+        }
+    }
+
 }

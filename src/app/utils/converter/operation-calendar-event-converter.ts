@@ -12,7 +12,7 @@ export class OperationCalendarEventConverter {
         if (_.isArray(operations)) {
             const events = [];
             _.each(operations, operation => {
-                if (operation.status === status || status === environment.operations.ALL_STATUS) {
+                if (this.checkStatus(operation, status)) {
                     const event = this.convert(operation);
                     events.push(event);
                 }
@@ -21,6 +21,15 @@ export class OperationCalendarEventConverter {
         }
 
         return [];
+    }
+
+    private checkStatus(operation, status) {
+        if (status === environment.operations.OPEN_STATUS && operation.client.status === environment.clients.BANNED_STATUS) {
+            return false;
+        }
+
+        return operation.status === status
+            || status === environment.operations.ALL_STATUS;
     }
 
     public convert(operation: Operation) {
