@@ -39,6 +39,30 @@ export class CRUDService {
             });
     }
 
+    async getById(clazz, id) {
+        return await this.databaseService.connection
+            .then(() => clazz.find({ where: {id: id}})).then(result => {
+                this.logger.debug('Find by id: ' + id);
+                this.logger.debug('Size: ' + result.length);
+                return result;
+            }).catch(error => {
+                this.errorService.showError(environment.messages.errors.DATABASE_FIND_ERROR, error);
+                return [];
+            });
+    }
+
+    async getByIdWithJoin(clazz, id, relations) {
+        return await this.databaseService.connection
+            .then(() => clazz.find({ where: {id: id}, relations: relations})).then(result => {
+                this.logger.debug('Find with join by id: ' + id);
+                this.logger.debug('Size: ' + result.length);
+                return result;
+            }).catch(error => {
+                this.errorService.showError(environment.messages.errors.DATABASE_FIND_ERROR, error);
+                return [];
+            });
+    }
+
     async update(clazz, entity: ClientsManagerEntity) {
         this.logger.debug('Update entity: ', entity);
         return await this.databaseService.connection

@@ -5,3 +5,8 @@
 .search-input {
     width: 250px;
 }
+
+.operations-button {
+    text-decoration: none;
+    color: black;
+}

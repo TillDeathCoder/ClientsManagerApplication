@@ -1,5 +1,6 @@
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
 import {ClientsManagerEntity} from './clients.manager.entity';
+import {Operation} from './operation';
 
 @Entity('clients')
 export class Client extends ClientsManagerEntity {
@@ -24,6 +25,9 @@ export class Client extends ClientsManagerEntity {
 
   @Column()
   status: string;
+
+  @OneToMany(type => Operation, operation => operation.client)
+  operations: Operation[];
 
   static getClientForCreate() {
     const client = new Client();

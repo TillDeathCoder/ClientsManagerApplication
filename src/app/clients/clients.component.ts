@@ -7,6 +7,9 @@ import {environment} from '../../environments/environment';
 import {ClientEditComponent} from '../client-edit/client-edit.component';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import * as _ from 'lodash';
+import {OperationDetailsComponent} from '../operation-details/operation-details.component';
+import {OperationEditComponent} from '../operation-edit/operation-edit.component';
+import {Operation} from '../entity/operation';
 
 @Component({
     selector: 'rp-clients',
@@ -22,7 +25,8 @@ export class ClientsComponent implements OnInit {
     searchName: string;
 
     constructor(private crudService: CRUDService,
-                private errorService: ErrorService, public activeModal: NgbActiveModal,
+                private errorService: ErrorService,
+                public activeModal: NgbActiveModal,
                 private modalService: NgbModal) {
     }
 
@@ -31,7 +35,7 @@ export class ClientsComponent implements OnInit {
     }
 
     renderClients() {
-        from(this.crudService.getAll(Client)).subscribe(result => {
+        from(this.crudService.getAllWithJoin(Client, {relations: ['operations']})).subscribe(result => {
             this.clients = result;
         }, error => {
             this.errorService.showError(environment.messages.errors.GET_ALL_CLIENTS_COMPONENT, error);
@@ -70,4 +74,57 @@ export class ClientsComponent implements OnInit {
     isActive(client: Client) {
         return client.status === environment.clients.ACTIVE_STATUS;
     }
+
+    getOpenOperations(client) {
+        return client.operations.filter(operation => {
+            return operation.status === environment.operations.OPEN_STATUS;
+        });
+    }
+
+    getClosedOperations(client) {
+        return client.operations.filter(operation => {
+            return operation.status === environment.operations.CLOSED_STATUS;
+        });
+    }
+
+    getCancelledOperations(client) {
+        return client.operations.filter(operation => {
+            return operation.status === environment.operations.CANCELLED_STATUS;
+        });
+    }
+
+    async showOperation(id) {
+        const resultFromDB = await this.crudService.getByIdWithJoin(Operation, id, ['client', 'operationType']);
+
+        if (resultFromDB && resultFromDB.length !== 1) {
+            this.activeModal.dismiss();
+            this.errorService.showError(environment.messages.errors.GET_OPERATION_COMPONENT, {});
+        }
+
+        const operation = resultFromDB[0];
+        const modalRef = this.modalService.open(OperationDetailsComponent, {backdrop: 'static', keyboard: false});
+        modalRef.componentInstance.operation = operation;
+        modalRef.result.then((result) => {
+            if (result && result.isEdit) {
+                this.activeModal.close(result);
+                this.openEditModal(operation);
+            } else {
+                this.renderClients();
+            }
+        }).catch(error => {
+            this.errorService.showError(environment.messages.errors.GET_OPERATION_COMPONENT, error);
+        });
+    }
+
+    openEditModal(operation) {
+        const modalRef = this.modalService.open(OperationEditComponent, {backdrop: 'static', keyboard: false});
+        modalRef.componentInstance.operation = _.cloneDeep(operation);
+        modalRef.result.then((result) => {
+            this.activeModal.dismiss();
+            this.renderClients();
+        }).catch(error => {
+            this.errorService.showError(environment.messages.errors.EDIT_OPERATION_COMPONENT, error);
+        });
+    }
+
 }

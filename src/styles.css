@@ -46,3 +46,7 @@ td.fc-day-top:hover {
   background: darkgrey;
   border-color: darkgrey;
 }
+
+a:hover {
+  cursor: pointer;
+}
