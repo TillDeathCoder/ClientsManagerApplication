@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import * as CanvasJS from 'libs/canvasjs/canvasjs.min';
 
 @Component({
-  selector: 'rp-statistic',
-  templateUrl: './statistic.component.html',
-  styleUrls: ['./statistic.component.scss']
+  selector: 'rp-statistic-year',
+  templateUrl: './statistic-year.component.html',
+  styleUrls: ['./statistic-year.component.scss']
 })
-export class StatisticComponent implements OnInit {
+export class StatisticYearComponent implements OnInit {
 
   constructor() { }
+
   ngOnInit() {
     const chart = new CanvasJS.Chart('chartContainer', {
       animationEnabled: true,
@@ -34,4 +35,5 @@ export class StatisticComponent implements OnInit {
 
     chart.render();
   }
+
 }

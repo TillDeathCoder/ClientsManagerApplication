@@ -15,9 +15,10 @@ import {OperationEditComponent} from './operation-edit/operation-edit.component'
 import {ClientEditComponent} from './client-edit/client-edit.component';
 import {ErrorDetailsComponent} from './error-details/error-details.component';
 import {ClientsNameFilter} from './utils/filter/clients.name.filter';
-import {StatisticComponent} from './statistic/statistic.component';
 import {ClientsStatusFilter} from './utils/filter/clients.status.filter';
 import {OperationCloseComponent} from './operation-close/operation-close.component';
+import { StatisticYearComponent } from './statistic-year/statistic-year.component';
+import { StatisticMonthComponent } from './statistic-month/statistic-month.component';
 
 @NgModule({
     declarations: [
@@ -30,8 +31,9 @@ import {OperationCloseComponent} from './operation-close/operation-close.compone
         ErrorDetailsComponent,
         ClientsNameFilter,
         ClientsStatusFilter,
-        StatisticComponent,
-        OperationCloseComponent
+        OperationCloseComponent,
+        StatisticYearComponent,
+        StatisticMonthComponent
     ],
     imports: [
         BrowserModule,

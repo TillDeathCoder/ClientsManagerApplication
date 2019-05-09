@@ -4,13 +4,20 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="menu-link" routerLink="/calendar">Расписание</a>
+          <a class="menu-link" routerLink="/calendar"><i class="fas fa-calendar-alt"></i> Расписание</a>
         </li>
         <li class="nav-item">
-          <a class="menu-link" routerLink="/clients">Клиенты</a>
+          <a class="menu-link" routerLink="/clients"><i class="fas fa-users"></i> Клиенты</a>
         </li>
-        <li class="nav-item">
-          <a class="menu-link" routerLink="/statistic">Статистика</a>
+        <li class="nav-item dropdown">
+          <a class="menu-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-chart-line"></i> Статистика
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" routerLink="/statistic-month">Месяц</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" routerLink="/statistic-year">Год</a>
+          </div>
         </li>
       </ul>
     </div>
