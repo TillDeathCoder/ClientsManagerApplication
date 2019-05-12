@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl} from '@angular/forms';
-import {Operation} from '../../entity/operation';
+import {Operation} from '../../../entity/operation';
 import {isNumber} from 'util';
-import {CRUDService} from '../../service/crud.service';
-import {environment} from '../../../environments/environment';
+import {CRUDService} from '../../../service/crud.service';
+import {environment} from '../../../../environments/environment';
 
 @Component({
     selector: 'rp-operation-close',

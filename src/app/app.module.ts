@@ -8,17 +8,17 @@ import {FullCalendarModule} from 'ng-fullcalendar';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 /* Components */
 import {AppComponent} from './app.component';
-import {ClientsComponent} from './component/clients/clients.component';
-import {OperationDetailsComponent} from './component/operation-details/operation-details.component';
-import {OperationsCalendarComponent} from './component/operations-calendar/operations-calendar.component';
-import {OperationEditComponent} from './component/operation-edit/operation-edit.component';
-import {ClientEditComponent} from './component/client-edit/client-edit.component';
-import {ErrorDetailsComponent} from './component/error-details/error-details.component';
+import {ClientsComponent} from './component/client/clients/clients.component';
+import {OperationDetailsComponent} from './component/operation/operation-details/operation-details.component';
+import {OperationsCalendarComponent} from './component/operation/operations-calendar/operations-calendar.component';
+import {OperationEditComponent} from './component/operation/operation-edit/operation-edit.component';
+import {ClientEditComponent} from './component/client/client-edit/client-edit.component';
+import {ErrorDetailsComponent} from './component/error/error-details/error-details.component';
 import {ClientsNameFilter} from './filter/clients.name.filter';
 import {ClientsStatusFilter} from './filter/clients.status.filter';
-import {OperationCloseComponent} from './component/operation-close/operation-close.component';
-import { StatisticYearComponent } from './component/statistic-year/statistic-year.component';
-import { StatisticMonthComponent } from './component/statistic-month/statistic-month.component';
+import {OperationCloseComponent} from './component/operation/operation-close/operation-close.component';
+import { StatisticYearComponent } from './component/statistic/statistic-year/statistic-year.component';
+import { StatisticMonthComponent } from './component/statistic/statistic-month/statistic-month.component';
 
 @NgModule({
     declarations: [

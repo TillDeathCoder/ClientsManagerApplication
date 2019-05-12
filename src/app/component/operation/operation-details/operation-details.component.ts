@@ -1,10 +1,10 @@
 import {Component, Injectable, Input, OnInit} from '@angular/core';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {Operation} from '../../entity/operation';
-import {environment} from '../../../environments/environment';
-import {CRUDService} from '../../service/crud.service';
+import {Operation} from '../../../entity/operation';
+import {environment} from '../../../../environments/environment';
+import {CRUDService} from '../../../service/crud.service';
 import {OperationCloseComponent} from '../operation-close/operation-close.component';
-import {ErrorService} from '../../service/error.service';
+import {ErrorService} from '../../../service/error.service';
 import * as _ from 'lodash';
 
 @Component({

@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl} from '@angular/forms';
-import {Client} from '../../entity/client';
-import {environment} from '../../../environments/environment';
-import {CRUDService} from '../../service/crud.service';
+import {Client} from '../../../entity/client';
+import {environment} from '../../../../environments/environment';
+import {CRUDService} from '../../../service/crud.service';
 
 @Component({
   selector: 'rp-client-edit',

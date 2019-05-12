@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {CRUDService} from '../../service/crud.service';
-import {Client} from '../../entity/client';
+import {CRUDService} from '../../../service/crud.service';
+import {Client} from '../../../entity/client';
 import {from} from 'rxjs';
-import {ErrorService} from '../../service/error.service';
-import {environment} from '../../../environments/environment';
+import {ErrorService} from '../../../service/error.service';
+import {environment} from '../../../../environments/environment';
 import {ClientEditComponent} from '../client-edit/client-edit.component';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import * as _ from 'lodash';
-import {OperationDetailsComponent} from '../operation-details/operation-details.component';
-import {OperationEditComponent} from '../operation-edit/operation-edit.component';
-import {Operation} from '../../entity/operation';
+import {OperationDetailsComponent} from '../../operation/operation-details/operation-details.component';
+import {OperationEditComponent} from '../../operation/operation-edit/operation-edit.component';
+import {Operation} from '../../../entity/operation';
 
 @Component({
     selector: 'rp-clients',
