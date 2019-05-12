@@ -3,10 +3,10 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
 /* Components */
-import {OperationsCalendarComponent} from './operations-calendar/operations-calendar.component';
-import {ClientsComponent} from './clients/clients.component';
-import {StatisticMonthComponent} from './statistic-month/statistic-month.component';
-import {StatisticYearComponent} from './statistic-year/statistic-year.component';
+import {OperationsCalendarComponent} from './component/operations-calendar/operations-calendar.component';
+import {ClientsComponent} from './component/clients/clients.component';
+import {StatisticMonthComponent} from './component/statistic-month/statistic-month.component';
+import {StatisticYearComponent} from './component/statistic-year/statistic-year.component';
 
 const routes: Routes = [
     {path: '', redirectTo: '/calendar', pathMatch: 'full'},

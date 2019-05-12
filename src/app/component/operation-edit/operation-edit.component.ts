@@ -1,20 +1,20 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Operation} from '../entity/operation';
+import {Operation} from '../../entity/operation';
 import {NgbActiveModal, NgbDateParserFormatter, NgbDatepickerI18n, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {Client} from '../entity/client';
-import {OperationType} from '../entity/operation-type';
-import {ClientsManagerDateFormatter} from '../utils/formatter/clients-manager-date-formatter';
-import {ClientsManagerDatepickerLocaleFormatter} from '../utils/formatter/clients-manager-datepicker-locale-formatter';
-import {ClientsManagerTimeFormatter} from '../utils/formatter/clients-manager-time-formatter';
+import {Client} from '../../entity/client';
+import {OperationType} from '../../entity/operation-type';
+import {ClientsManagerDateFormatter} from '../../formatter/clients-manager-date-formatter';
+import {ClientsManagerDatepickerLocaleFormatter} from '../../formatter/clients-manager-datepicker-locale-formatter';
+import {ClientsManagerTimeFormatter} from '../../formatter/clients-manager-time-formatter';
 import {AsyncValidatorFn, FormControl} from '@angular/forms';
-import {OperationValidator} from '../utils/validator/operation-validator';
+import {OperationValidator} from '../../validator/operation-validator';
 import {isNumber} from 'util';
 import {Observable} from 'rxjs';
 import {from} from 'rxjs/internal/observable/from';
 import {ClientEditComponent} from '../client-edit/client-edit.component';
-import {ErrorService} from '../service/error.service';
-import {CRUDService} from '../service/crud.service';
-import {environment} from '../../environments/environment';
+import {ErrorService} from '../../service/error.service';
+import {CRUDService} from '../../service/crud.service';
+import {environment} from '../../../environments/environment';
 
 @Component({
     selector: 'rp-operation-edit',

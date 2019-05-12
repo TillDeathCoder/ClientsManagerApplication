@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Operation} from '../../entity/operation';
+import {Operation} from '../entity/operation';
 import {ClientsManagerTimeFormatter} from '../formatter/clients-manager-time-formatter';
 import {NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import {environment} from '../../../environments/environment';
-import {CRUDService} from '../../service/crud.service';
+import {environment} from '../../environments/environment';
+import {CRUDService} from '../service/crud.service';
 import {isNumber} from 'util';
 
 @Injectable({

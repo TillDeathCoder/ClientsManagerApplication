@@ -8,17 +8,17 @@ import {FullCalendarModule} from 'ng-fullcalendar';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 /* Components */
 import {AppComponent} from './app.component';
-import {ClientsComponent} from './clients/clients.component';
-import {OperationDetailsComponent} from './operation-details/operation-details.component';
-import {OperationsCalendarComponent} from './operations-calendar/operations-calendar.component';
-import {OperationEditComponent} from './operation-edit/operation-edit.component';
-import {ClientEditComponent} from './client-edit/client-edit.component';
-import {ErrorDetailsComponent} from './error-details/error-details.component';
-import {ClientsNameFilter} from './utils/filter/clients.name.filter';
-import {ClientsStatusFilter} from './utils/filter/clients.status.filter';
-import {OperationCloseComponent} from './operation-close/operation-close.component';
-import { StatisticYearComponent } from './statistic-year/statistic-year.component';
-import { StatisticMonthComponent } from './statistic-month/statistic-month.component';
+import {ClientsComponent} from './component/clients/clients.component';
+import {OperationDetailsComponent} from './component/operation-details/operation-details.component';
+import {OperationsCalendarComponent} from './component/operations-calendar/operations-calendar.component';
+import {OperationEditComponent} from './component/operation-edit/operation-edit.component';
+import {ClientEditComponent} from './component/client-edit/client-edit.component';
+import {ErrorDetailsComponent} from './component/error-details/error-details.component';
+import {ClientsNameFilter} from './filter/clients.name.filter';
+import {ClientsStatusFilter} from './filter/clients.status.filter';
+import {OperationCloseComponent} from './component/operation-close/operation-close.component';
+import { StatisticYearComponent } from './component/statistic-year/statistic-year.component';
+import { StatisticMonthComponent } from './component/statistic-month/statistic-month.component';
 
 @NgModule({
     declarations: [

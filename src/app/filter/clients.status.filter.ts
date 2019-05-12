@@ -1,6 +1,6 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Client} from '../../entity/client';
-import {environment} from '../../../environments/environment';
+import {Client} from '../entity/client';
+import {environment} from '../../environments/environment';
 
 @Pipe({
     name: 'statusFilter',

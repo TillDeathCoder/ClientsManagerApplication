@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Client} from '../../entity/client';
+import {Client} from '../entity/client';
 
 @Pipe({
     name: 'nameFilter',

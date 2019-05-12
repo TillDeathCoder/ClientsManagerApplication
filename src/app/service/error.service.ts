@@ -1,6 +1,6 @@
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Injectable} from '@angular/core';
-import {ErrorDetailsComponent} from '../error-details/error-details.component';
+import {ErrorDetailsComponent} from '../component/error-details/error-details.component';
 import {Router} from '@angular/router';
 import {NGXLogger} from 'ngx-logger';
 

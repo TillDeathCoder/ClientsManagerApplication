@@ -1,7 +1,7 @@
-import {Operation} from '../../entity/operation';
+import {Operation} from '../entity/operation';
 import * as _ from 'lodash';
 import {Injectable} from '@angular/core';
-import {environment} from '../../../environments/environment';
+import {environment} from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
