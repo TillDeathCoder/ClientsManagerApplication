@@ -1,39 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import * as CanvasJS from 'libs/canvasjs/canvasjs.min';
+import {StatisticYearBuilder} from '../../../utils/builder/statistic-year.builder';
 
 @Component({
-  selector: 'rp-statistic-year',
-  templateUrl: './statistic-year.component.html',
-  styleUrls: ['./statistic-year.component.scss']
+    selector: 'rp-statistic-year',
+    templateUrl: './statistic-year.component.html',
+    styleUrls: ['./statistic-year.component.scss']
 })
 export class StatisticYearComponent implements OnInit {
 
-  constructor() { }
+    constructor(private infoBuilder: StatisticYearBuilder) {
+    }
 
-  ngOnInit() {
-    const chart = new CanvasJS.Chart('chartContainer', {
-      animationEnabled: true,
-      exportEnabled: true,
-      title: {
-        text: 'Basic Column Chart in Angular'
-      },
-      data: [{
-        type: 'column',
-        dataPoints: [
-          { y: 71, label: 'Apple' },
-          { y: 55, label: 'Mango' },
-          { y: 50, label: 'Orange' },
-          { y: 65, label: 'Banana' },
-          { y: 95, label: 'Pineapple' },
-          { y: 68, label: 'Pears' },
-          { y: 28, label: 'Grapes' },
-          { y: 34, label: 'Lychee' },
-          { y: 14, label: 'Jackfruit' }
-        ]
-      }]
-    });
+    async ngOnInit() {
+        const info = await this.infoBuilder.build('2019');
+        const chart = new CanvasJS.Chart('chartContainer', {
+            animationEnabled: true,
+            exportEnabled: true,
+            title: {
+                text: 'Статистика за год'
+            },
+            data: [{
+                type: 'column',
+                dataPoints: info
+            }]
+        });
 
-    chart.render();
-  }
+        chart.render();
+    }
 
 }

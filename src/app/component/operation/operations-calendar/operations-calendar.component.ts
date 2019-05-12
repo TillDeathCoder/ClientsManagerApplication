@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {CalendarComponent} from 'ng-fullcalendar';
 import {OperationDetailsComponent} from '../operation-details/operation-details.component';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {OperationCalendarEventConverter} from '../../../converter/operation-calendar-event-converter';
+import {OperationCalendarEventConverter} from '../../../utils/converter/operation-calendar-event-converter';
 import {Operation} from '../../../entity/operation';
 import * as _ from 'lodash';
 import * as moment from 'moment';
