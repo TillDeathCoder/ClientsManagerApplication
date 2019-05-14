@@ -1,1 +1,22 @@
+<div class="search-bar">
+    <nav class="navbar navbar-expand-lg bg-dark search-bar">
+        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item mx-sm-2">
+                    <div class="input-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-secondary" type="button" (click)="minus()"><i class="fas fa-arrow-left"></i></button>
+                            </div>
+                            <input type="text" class="form-control justify-content-center year-input" [formControl]="yearControl">
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary" type="button" (click)="plus()"><i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
 <div id="chartContainer" style="height: 370px; width: 100%;"></div>

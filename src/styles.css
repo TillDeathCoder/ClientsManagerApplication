@@ -50,3 +50,8 @@ td.fc-day-top:hover {
 a:hover {
   cursor: pointer;
 }
+
+.search-bar{
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
