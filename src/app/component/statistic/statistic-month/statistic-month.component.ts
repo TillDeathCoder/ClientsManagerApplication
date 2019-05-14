@@ -16,21 +16,16 @@ export class StatisticMonthComponent implements OnInit {
       animationEnabled: true,
       exportEnabled: true,
       title: {
-        text: 'Monthly Expense'
+        text: 'Статистика за МЕСЯЦ'
       },
       data: [{
         type: 'pie',
         showInLegend: true,
-        toolTipContent: '<b>{name}</b>: ${y} (#percent%)',
+        toolTipContent: '<b>{name}</b>: (#percent%)',
         indexLabel: '{name} - #percent%',
         dataPoints: [
-          { y: 450, name: 'Food' },
-          { y: 120, name: 'Insurance' },
-          { y: 300, name: 'Traveling' },
-          { y: 800, name: 'Housing' },
-          { y: 150, name: 'Education' },
-          { y: 150, name: 'Shopping'},
-          { y: 250, name: 'Others' }
+          { y: 25, name: 'Отмененные', exploded: true, color: 'orange' },
+          { y: 100, name: 'Закрытые' }
         ]
       }]
     });
