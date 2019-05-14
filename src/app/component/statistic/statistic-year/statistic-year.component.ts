@@ -2,8 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import * as CanvasJS from 'libs/canvasjs/canvasjs.min';
 import {StatisticYearBuilder} from '../../../utils/builder/statistic-year.builder';
 import * as moment from 'moment';
-import {FormControl, Validators} from '@angular/forms';
-import {isNumber} from 'util';
+import {FormControl} from '@angular/forms';
 
 @Component({
     selector: 'rp-statistic-year',
@@ -15,6 +14,7 @@ export class StatisticYearComponent implements OnInit {
     START_YEAR = 2019;
     currentYear = moment(new Date()).year();
     yearControl: FormControl;
+    showWarning = false;
 
     constructor(private infoBuilder: StatisticYearBuilder) {
     }
@@ -24,12 +24,14 @@ export class StatisticYearComponent implements OnInit {
         this.yearControl = new FormControl(this.currentYear, [], async (control: FormControl) => {
             if (+control.value >= this.START_YEAR) {
                 this.currentYear = +control.value;
+                this.showWarning = false;
                 await this.renderChart(this.currentYear);
             } else {
                 if (isNaN(+control.value)) {
                     this.currentYear = this.START_YEAR;
                     this.yearControl.setValue(this.START_YEAR);
                 }
+                this.showWarning = true;
             }
             return null;
         });
@@ -60,6 +62,8 @@ export class StatisticYearComponent implements OnInit {
         const result = +this.currentYear - 1;
         if (result >= this.START_YEAR) {
             this.yearControl.setValue(result);
+        } else {
+            this.showWarning = true;
         }
     }
 
