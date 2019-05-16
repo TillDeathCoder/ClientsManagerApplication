@@ -16,7 +16,9 @@ export const environment = {
         OPEN_STATUS: 'OPEN',
         CLOSED_STATUS: 'CLOSED',
         CANCELLED_STATUS: 'CANCELED',
-        ALL_STATUS: 'ALL'
+        ALL_STATUS: 'ALL',
+        STATISTIC_CLOSED_TITLE: 'Закрытые',
+        STATISTIC_CANCELLED_TITLE: 'Отмененные'
     },
     calendar: {
         colors: {

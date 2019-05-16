@@ -3,6 +3,7 @@ import {CRUDService} from '../../service/crud.service';
 import {Operation} from '../../entity/operation';
 import * as _ from 'lodash';
 import {environment} from '../../../environments/environment';
+import {DateUtils} from '../date.utils';
 
 @Injectable({
     providedIn: 'root'
@@ -49,15 +50,7 @@ export class StatisticYearBuilder {
             return false;
         }
 
-        return this.checkDateRange(year, index, operation);
+        return DateUtils.checkDateRange(year, index, operation);
     }
 
-    checkDateRange(year, index, operation) {
-        const parsedDate = operation.date.split('-');
-        if (+parsedDate[0] !== +year) {
-            return false;
-        }
-
-        return +index === +parsedDate[1];
-    }
 }
