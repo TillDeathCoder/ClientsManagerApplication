@@ -31,7 +31,7 @@ function createWindow() {
     }
 
     win.maximize();
-    win.setMenuBarVisibility(false);
+    win.setMenuBarVisibility(true);
 
     win.on('closed', () => {
         win = null;

@@ -1,5 +1,5 @@
 {
-  "productName": "app-ui",
+  "productName": "Clients manager",
   "directories": {
     "output": "app-builds"
   },
@@ -19,8 +19,9 @@
         "!tsconfig.json",
         "!tslint.json"
     ],
+  "extraResources": ["clients_manager_database.db"],
   "win": {
-    "icon": "dist/assets/icons",
+    "icon": "dist/assets/icons/icon.png",
     "target": [
       "portable"
     ]

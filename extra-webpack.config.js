@@ -6,7 +6,7 @@ module.exports = {
     // start of extra configs
     externals: {
         typeorm: "require('typeorm')",
-        mysql: "require('mysql')"
+        sqlite3: "require('sqlite3')"
     },
     resolve: {
         alias: {
