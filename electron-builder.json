@@ -19,7 +19,7 @@
         "!tsconfig.json",
         "!tslint.json"
     ],
-  "extraResources": ["clients_manager_database.db"],
+  "extraResources": ["database/clients_manager_database.db"],
   "win": {
     "icon": "dist/assets/icons/icon.png",
     "target": [

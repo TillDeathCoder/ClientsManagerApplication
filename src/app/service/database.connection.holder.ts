@@ -17,7 +17,13 @@ export class DatabaseConnectionHolder {
 
     constructor() {
         const appPath = remote.app.getAppPath();
-        const dbPath = path.join(appPath, '/database/');
+        let dbPath = '';
+        if (environment.production) {
+            dbPath = path.dirname(remote.process.execPath);
+            dbPath = path.join(dbPath, '/resources/database/');
+        } else {
+            dbPath = path.join(appPath, '/database/');
+        }
         const database = path.join(dbPath, environment.databaseConfiguration.databaseName);
 
         // @ts-ignore
