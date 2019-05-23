@@ -2,7 +2,7 @@ import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Injectable} from '@angular/core';
 import {ErrorDetailsComponent} from '../component/error/error-details/error-details.component';
 import {Router} from '@angular/router';
-import {NGXLogger} from 'ngx-logger';
+import {Logger} from '../utils/logger';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +12,7 @@ export class ErrorService {
     constructor(private modalService: NgbModal,
                 public activeModal: NgbActiveModal,
                 private router: Router,
-                private logger: NGXLogger) {
+                private logger: Logger) {
     }
 
     showError(message: String, reason) {

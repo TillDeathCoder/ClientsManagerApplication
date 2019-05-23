@@ -6,6 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {FullCalendarModule} from 'ng-fullcalendar';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
+import {NgxElectronModule} from 'ngx-electron';
 /* Components */
 import {AppComponent} from './app.component';
 import {ClientsComponent} from './component/client/clients/clients.component';
@@ -17,8 +18,8 @@ import {ErrorDetailsComponent} from './component/error/error-details/error-detai
 import {ClientsNameFilter} from './filter/clients.name.filter';
 import {ClientsStatusFilter} from './filter/clients.status.filter';
 import {OperationCloseComponent} from './component/operation/operation-close/operation-close.component';
-import { StatisticYearComponent } from './component/statistic/statistic-year/statistic-year.component';
-import { StatisticMonthComponent } from './component/statistic/statistic-month/statistic-month.component';
+import {StatisticYearComponent} from './component/statistic/statistic-year/statistic-year.component';
+import {StatisticMonthComponent} from './component/statistic/statistic-month/statistic-month.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +47,8 @@ import { StatisticMonthComponent } from './component/statistic/statistic-month/s
             serverLogLevel: NgxLoggerLevel.ERROR
         }),
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgxElectronModule
     ],
     providers: [NgbActiveModal],
     bootstrap: [AppComponent],

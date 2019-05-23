@@ -4,6 +4,7 @@ import {ErrorService} from './error.service';
 import {Injectable} from '@angular/core';
 import {ClientsManagerEntity} from '../entity/clients.manager.entity';
 import {environment} from '../../environments/environment';
+import {Logger} from '../utils/logger';
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +12,7 @@ import {environment} from '../../environments/environment';
 export class CRUDService {
 
     constructor(private databaseService: DatabaseConnectionHolder,
-                private logger: NGXLogger,
+                private logger: Logger,
                 private errorService: ErrorService) {
     }
 

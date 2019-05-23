@@ -1,6 +1,8 @@
-import {app, BrowserWindow, Menu, Tray} from 'electron';
+import {app, BrowserWindow} from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+import * as fs from 'fs';
+const electronLog = require('electron-log');
 
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true';
 let win: BrowserWindow = null;
@@ -9,7 +11,20 @@ let win: BrowserWindow = null;
 const args = process.argv.slice(1);
 const serve: boolean = args.some(val => val === '--serve');
 
+function initLogger() {
+    electronLog.transports.file.level = 'info';
+    electronLog.transports.file.maxSize = 5 * 1024 * 1024;
+
+    const logFolder = path.join(__dirname, '/logs/');
+    electronLog.transports.file.file = logFolder + 'log.log';
+    electronLog.transports.file.file = logFolder + 'log.log';
+    electronLog.transports.file.streamConfig = {flags: 'a'};
+    electronLog.transports.file.stream = fs.createWriteStream(electronLog.transports.file.file);
+}
+
 function createWindow() {
+
+    initLogger();
 
     win = new BrowserWindow({minWidth: 1100, icon: path.join(__dirname, '/src/assets/icons/favicon.ico')});
 
