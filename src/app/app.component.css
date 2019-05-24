@@ -15,5 +15,5 @@
 
 .menu-link:hover {
   text-decoration: none;
-  color: #e51620;
+  color: #e51620 !important;
 }

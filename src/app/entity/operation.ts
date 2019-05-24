@@ -7,11 +7,11 @@ import {environment} from '../../environments/environment';
 @Entity('operations')
 export class Operation extends ClientsManagerEntity {
 
-    @OneToOne(type => OperationType)
+    @OneToOne(type => OperationType, operationType => operationType.id)
     @JoinColumn()
     operationType: OperationType;
 
-    @OneToOne(type => Client)
+    @OneToOne(type => Client, client => client.id)
     @JoinColumn()
     client: Client;
 

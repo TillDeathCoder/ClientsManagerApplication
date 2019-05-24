@@ -1,5 +1,4 @@
 import {DatabaseConnectionHolder} from './database.connection.holder';
-import {NGXLogger} from 'ngx-logger';
 import {ErrorService} from './error.service';
 import {Injectable} from '@angular/core';
 import {ClientsManagerEntity} from '../entity/clients.manager.entity';
@@ -42,7 +41,7 @@ export class CRUDService {
 
     async getById(clazz, id) {
         return await this.databaseService.connection
-            .then(() => clazz.find({ where: {id: id}})).then(result => {
+            .then(() => clazz.find({where: {id: id}})).then(result => {
                 this.logger.debug('Find by id: ' + id);
                 this.logger.debug('Size: ' + result.length);
                 return result;
@@ -54,7 +53,7 @@ export class CRUDService {
 
     async getByIdWithJoin(clazz, id, relations) {
         return await this.databaseService.connection
-            .then(() => clazz.find({ where: {id: id}, relations: relations})).then(result => {
+            .then(() => clazz.find({where: {id: id}, relations: relations})).then(result => {
                 this.logger.debug('Find with join by id: ' + id);
                 this.logger.debug('Size: ' + result.length);
                 return result;
@@ -69,6 +68,7 @@ export class CRUDService {
         return await this.databaseService.connection
             .then(() => clazz.update(entity.id, entity)).then(result => {
                 this.logger.debug('Success.');
+                this.logger.debug(result);
                 return result;
             }).catch(error => {
                 this.errorService.showError(environment.messages.errors.DATABASE_EDIT_ERROR, error);
@@ -79,9 +79,11 @@ export class CRUDService {
     async create(clazz, entity: ClientsManagerEntity) {
         this.logger.debug('Create entity: ', entity);
         return await this.databaseService.connection
-            .then(() => clazz.save(entity)).then(result => {
+            .then(() => clazz.insert(entity)).then(result => {
                 this.logger.debug('Success.');
-                return result;
+                this.logger.debug(result);
+                entity.id = result.raw;
+                return entity;
             }).catch(error => {
                 this.errorService.showError(environment.messages.errors.DATABASE_SAVE_ERROR, error);
                 return {};

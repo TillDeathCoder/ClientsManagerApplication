@@ -3,7 +3,7 @@ export const environment = {
     databaseConfiguration: {
         type: 'sqlite',
         databaseName: 'clients_manager_database_dev.db',
-        logging: false,
+        logging: true,
     },
     clients: {
         ACTIVE_STATUS: 'ACTIVE',

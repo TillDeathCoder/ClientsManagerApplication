@@ -16,18 +16,18 @@ function initLogger() {
 
     const appFolder = path.dirname(app.getAppPath());
     const logFolder = path.join(appFolder, '/logs/');
-    const file = logFolder + 'log.log';
+    const filePath = path.join(logFolder, 'log.txt');
 
     if (!fs.existsSync(logFolder)) {
         fs.mkdirSync(logFolder);
     }
-    fs.writeFile(file, null, null, (err => {
+    fs.writeFile(filePath, null, null, (err => {
         console.log(err);
     }));
 
-    electronLog.transports.file.file = true;
+    electronLog.transports.file.file = filePath;
 
-    electronLog.transports.file.level = 'error';
+    electronLog.transports.file.level = 'debug';
     electronLog.transports.file.maxSize = 5 * 1024 * 1024;
     electronLog.transports.file.streamConfig = {flags: 'a'};
     electronLog.transports.file.stream = fs.createWriteStream(electronLog.transports.file.file);

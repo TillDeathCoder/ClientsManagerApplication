@@ -14,12 +14,17 @@ export class ClientsNameFilter implements PipeTransform {
         if (!name) {
             return clients;
         }
-
         name = name.toLowerCase();
 
         return clients.filter(client => {
-            return client.firstName.toLowerCase().includes(name) || client.lastName.toLowerCase().includes(name);
+            const firstName = this.transforName(client.firstName);
+            const lastName = this.transforName(client.lastName);
+            return firstName.includes(name) || lastName.includes(name);
         });
+    }
+
+    private transforName(name) {
+        return name ? name.toLowerCase() : '';
     }
 
 }

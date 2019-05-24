@@ -1,4 +1,4 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {NGXLogger} from 'ngx-logger';
 import {ElectronService} from 'ngx-electron';
@@ -20,11 +20,20 @@ export class Logger {
     }
 
     debug(message: any, ...additional: any[]) {
-        this.logger.debug(message, additional);
+        if (additional) {
+            this.logger.debug(message, additional);
+        } else {
+            this.logger.debug(message);
+        }
     }
 
     error(message: any, ...additional: any[]) {
-        this.logger.error(message, additional);
+        if (additional) {
+            this.logger.error(message, additional);
+        } else {
+            this.logger.error(message);
+        }
     }
+
 
 }
