@@ -10,6 +10,9 @@ import * as _ from 'lodash';
 import {OperationDetailsComponent} from '../../operation/operation-details/operation-details.component';
 import {OperationEditComponent} from '../../operation/operation-edit/operation-edit.component';
 import {Operation} from '../../../entity/operation';
+import {LinkRedirectManager} from '../../../utils/link.redirect.manager';
+import * as moment from 'moment';
+import {isMoment} from 'moment';
 
 @Component({
     selector: 'rp-clients',
@@ -24,7 +27,8 @@ export class ClientsComponent implements OnInit {
     pageSize = 6;
     searchName: string;
 
-    constructor(private crudService: CRUDService,
+    constructor(public linkRedirectManager: LinkRedirectManager,
+                private crudService: CRUDService,
                 private errorService: ErrorService,
                 public activeModal: NgbActiveModal,
                 private modalService: NgbModal) {
@@ -128,4 +132,11 @@ export class ClientsComponent implements OnInit {
         });
     }
 
+    createEvent(client) {
+        const formattedDate = moment(new Date()).format(environment.formats.DATE_FORMAT);
+        const opertaion = Operation.getOperationForCreate(formattedDate);
+        opertaion.client = client;
+
+        this.openEditModal(opertaion);
+    }
 }

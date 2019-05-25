@@ -55,3 +55,8 @@ a:hover {
   margin-bottom: 10px;
   border-radius: 10px;
 }
+
+.client-link:hover {
+  cursor: pointer;
+  color: #22b9c2 !important;
+}

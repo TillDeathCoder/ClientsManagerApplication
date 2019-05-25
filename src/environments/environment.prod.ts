@@ -12,7 +12,7 @@ export const environment = {
     operations: {
         DEFAULT_START: '10:00',
         DEFAULT_FINISH: '12:00',
-        DEFAULT_PRICE: 25,
+        DEFAULT_PRICE: 35,
         OPEN_STATUS: 'OPEN',
         CLOSED_STATUS: 'CLOSED',
         CANCELLED_STATUS: 'CANCELED',

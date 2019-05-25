@@ -15,17 +15,22 @@
       </div>
     </li>
     <li class="list-group-item">
-      <div class="form-group">
-        <label for="clientsSelect"><i class="fas fa-user-edit"></i> Клиент:</label>
-        <select class="form-control mb-2" id="clientsSelect" [ngClass]="{'border-danger': !clientStatus}" [formControl]="clientControl" [compareWith]="compare">
-          <option *ngFor="let client of clients | statusFilter: ''" [ngValue]="client">
-            {{client.firstName}} {{client.lastName}}
-          </option>
-        </select>
-        <button class="btn btn-primary" (click)="addClient()">Добавить клиента</button>
-        <div class="small form-text text-danger">
-          <div *ngIf="!clientStatus">Выберите клиента. Нельзя создать запись без клиента.</div>
-        </div>
+      <label for="clientsSelect"><i class="fas fa-user-edit"></i> Клиент:</label>
+      <ng-template #rt let-r="result">
+        <ngb-highlight [result]="(r.firstName ? r.firstName : '') + ' ' + (r.lastName ? r.lastName : '')"></ngb-highlight>
+      </ng-template>
+      <input id="clientsSelect" type="text" class="form-control mb-2"
+             [formControl]="clientControl"
+             [ngbTypeahead]="search"
+             [resultTemplate]="rt"
+             [inputFormatter]="formatter"
+             (focus)="focus$.next($event.target.value)"
+             (click)="click$.next($event.target.value)"
+             [ngClass]="{'border-danger': !clientStatus}"
+             #instance="ngbTypeahead"/>
+      <button class="btn btn-primary" (click)="addClient()">Добавить клиента</button>
+      <div class="small form-text text-danger">
+        <div *ngIf="!clientStatus">Выберите клиента. Нельзя создать запись без клиента.</div>
       </div>
     </li>
     <li class="list-group-item">

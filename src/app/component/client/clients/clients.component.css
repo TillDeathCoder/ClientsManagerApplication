@@ -10,3 +10,8 @@
     text-decoration: none;
     color: black;
 }
+
+.operations-button:hover {
+    cursor: pointer;
+    color: #16c5db !important;
+}

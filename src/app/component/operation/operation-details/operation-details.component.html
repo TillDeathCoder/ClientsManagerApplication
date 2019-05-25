@@ -13,8 +13,8 @@
     <li class="list-group-item" *ngIf="operation.client.phoneNumber">
       <i class="fas fa-phone"></i> {{operation.client.phoneNumber}}
     </li>
-    <li class="list-group-item" *ngIf="operation.client.internetLink">
-      <i class="fas fa-external-link-square-alt"></i> <a href="{{operation.client.internetLink}}"> {{operation.client.internetLink}}</a>
+    <li class="list-group-item client-link" *ngIf="operation.client.internetLink">
+      <i class="fas fa-external-link-square-alt"></i> <a (click)="linkRedirectManager.openLink(operation.client.internetLink)"> {{operation.client.internetLink}}</a>
     </li>
     <li class="list-group-item">
       <i class="fas fa-calendar-alt"></i> {{operation.date}}

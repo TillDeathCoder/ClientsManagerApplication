@@ -43,17 +43,19 @@
                     <li class="list-group-item" *ngIf="client.phoneNumber">
                         <i class="fas fa-phone"></i> {{client.phoneNumber}}
                     </li>
-                    <li class="list-group-item" *ngIf="client.internetLink">
+                    <li class="list-group-item client-link" *ngIf="client.internetLink">
                         <i class="fas fa-external-link-square-alt"></i>
-                        <a href="{{client.internetLink}}"> {{client.internetLink}}</a>
+                        <a (click)="linkRedirectManager.openLink(client.internetLink)"> {{client.internetLink}}</a>
                     </li>
                 </ul>
                 <div class="card-body" *ngIf="client.operations.length">
-                    <a data-toggle="collapse" href="#{{'collapseOperations' + client.id}}" role="button"
-                       aria-expanded="false" class="operations-button">
+                    <a data-toggle="collapse" role="button"
+                       class="operations-button"
+                       [attr.aria-expanded]="!client.isCollapsed"
+                       (click)="client.isCollapsed = !client.isCollapsed">
                         <i class="fas fa-calendar-alt"></i> Записи <i class="fas fa-caret-down"></i>
                     </a>
-                    <div class="collapse" id="{{'collapseOperations' + client.id}}">
+                    <div class="collapse" [ngbCollapse]="!client.isCollapsed">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item" *ngIf="getOpenOperations(client).length">
                                 <i class="fas fa-spinner"></i> Открытые:
@@ -99,6 +101,9 @@
                                 *ngIf="!isActive(client)">
                             Восстановить <i class="fas fa-trash-restore"></i>
                         </button>
+                        <button type="button" class="btn btn-success" (click)="createEvent(client)"
+                                *ngIf="isActive(client)">
+                            Записать клиента <i class="fas fa-pen"></i></button>
                     </div>
                 </div>
             </div>

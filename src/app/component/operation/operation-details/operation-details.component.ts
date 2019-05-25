@@ -6,6 +6,7 @@ import {CRUDService} from '../../../service/crud.service';
 import {OperationCloseComponent} from '../operation-close/operation-close.component';
 import {ErrorService} from '../../../service/error.service';
 import * as _ from 'lodash';
+import {LinkRedirectManager} from '../../../utils/link.redirect.manager';
 
 @Component({
     selector: 'rp-operation-details',
@@ -20,6 +21,7 @@ export class OperationDetailsComponent implements OnInit {
     @Input() operation: Operation;
 
     constructor(public activeModal: NgbActiveModal,
+                public linkRedirectManager: LinkRedirectManager,
                 private modalService: NgbModal,
                 private crudService: CRUDService,
                 private errorService: ErrorService) {

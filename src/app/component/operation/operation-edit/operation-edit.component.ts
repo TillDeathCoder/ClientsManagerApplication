@@ -1,6 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Operation} from '../../../entity/operation';
-import {NgbActiveModal, NgbDateParserFormatter, NgbDatepickerI18n, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {
+    NgbActiveModal,
+    NgbDateParserFormatter,
+    NgbDatepickerI18n,
+    NgbModal,
+    NgbTypeahead
+} from '@ng-bootstrap/ng-bootstrap';
 import {Client} from '../../../entity/client';
 import {OperationType} from '../../../entity/operation-type';
 import {ClientsManagerDateFormatter} from '../../../utils/formatter/clients-manager-date-formatter';
@@ -9,12 +15,15 @@ import {ClientsManagerTimeFormatter} from '../../../utils/formatter/clients-mana
 import {AsyncValidatorFn, FormControl} from '@angular/forms';
 import {OperationValidator} from '../../../utils/validator/operation-validator';
 import {isNumber} from 'util';
-import {Observable} from 'rxjs';
+import {merge, Observable, Subject} from 'rxjs';
 import {from} from 'rxjs/internal/observable/from';
 import {ClientEditComponent} from '../../client/client-edit/client-edit.component';
 import {ErrorService} from '../../../service/error.service';
 import {CRUDService} from '../../../service/crud.service';
 import {environment} from '../../../../environments/environment';
+import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
+import {StringUtils} from '../../../utils/string.utils';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'rp-operation-edit',
@@ -25,6 +34,7 @@ import {environment} from '../../../../environments/environment';
         {provide: NgbDatepickerI18n, useClass: ClientsManagerDatepickerLocaleFormatter}
     ]
 })
+
 export class OperationEditComponent implements OnInit {
 
     @Input() operation: Operation;
@@ -45,6 +55,10 @@ export class OperationEditComponent implements OnInit {
     CLOSED_STATUS = environment.operations.CLOSED_STATUS;
     CANCELLED_STATUS = environment.operations.CANCELLED_STATUS;
 
+    @ViewChild('instance') instance: NgbTypeahead;
+    focus$ = new Subject<string>();
+    click$ = new Subject<string>();
+
     constructor(public activeModal: NgbActiveModal,
                 private modalService: NgbModal,
                 private dateFormatter: NgbDateParserFormatter,
@@ -62,7 +76,7 @@ export class OperationEditComponent implements OnInit {
         });
 
         from(this.crudService.getAll(Client)).subscribe(clients => {
-            this.clients = clients;
+            this.clients = _.filter(clients, client => client.status === environment.clients.ACTIVE_STATUS);
         }, error => {
             this.errorService.showError(environment.messages.errors.GET_ALL_CLIENTS_COMPONENT, error);
         });
@@ -199,5 +213,31 @@ export class OperationEditComponent implements OnInit {
             return false;
         }
         return first.id === second.id;
+    }
+
+    formatter(result: any) {
+        const firstName = result.firstName ? result.firstName : '';
+        const lastName = result.lastName ? result.lastName : '';
+
+        if (lastName) {
+            return `${firstName} ${lastName}`;
+        }
+
+        return firstName;
+    }
+
+    search = (text$: Observable<string>) => {
+        const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
+        const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.instance.isPopupOpen()));
+        const inputFocus$ = this.focus$;
+
+        return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
+            map(term => term === ''
+                ? this.clients
+                : this.clients.filter(client => {
+                    return StringUtils.isStringContains(client.firstName, term)
+                        || StringUtils.isStringContains(client.lastName, term);
+                }).slice(0, 10))
+        );
     }
 }
