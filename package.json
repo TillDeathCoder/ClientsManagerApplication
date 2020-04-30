@@ -78,7 +78,7 @@
     "fs": "0.0.1-security",
     "fullcalendar": "^3.6.1",
     "hammerjs": "^2.0.8",
-    "jquery": "^3.4.0",
+    "jquery": "^3.5.0",
     "jquery-ui-dist": "^1.12.0",
     "jquery-ui-themes": "^1.12.0",
     "lodash": "^4.17.11",
