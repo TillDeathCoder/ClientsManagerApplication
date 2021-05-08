@@ -41,7 +41,7 @@
   "dependencies": {
     "electron-log": "^3.0.5",
     "sqlite3": "^4.0.6",
-    "typeorm": "^0.2.7"
+    "typeorm": "^0.2.25"
   },
   "devDependencies": {
     "@angular-devkit/architect": "^0.7.2",
